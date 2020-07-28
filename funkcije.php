@@ -38,9 +38,9 @@ function insertPrijava($kategorija, $grad, $primjedba, $attachment = '', $email 
     $attachment = mysqli_real_escape_string($conn, $attachment);
     $email = mysqli_real_escape_string($conn, $email);
     $ime = mysqli_real_escape_string($conn, $ime);
-    
+    //$dat_i = now();
   
-    $query = "INSERT INTO prijava(kategorija, grad, primjedba, attachment, email, ime) VALUES('{$kategorija}', '{$grad}', '{$primjedba}', '{$attachment}', '{$email}', '{$ime}')";
+    $query = "INSERT INTO prijava(kategorija, grad, primjedba, attachment, email, ime, datum_i) VALUES('{$kategorija}', '{$grad}', '{$primjedba}', '{$attachment}', '{$email}', '{$ime}', now())";
     $insert_prijava = mysqli_query($conn, $query);
     
     if($insert_prijava){

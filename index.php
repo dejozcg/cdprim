@@ -4,21 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
+
     <?php 
     include "db.php";
     include "funkcije.php";
     // require_once('db.php');
     // require_once('funkcije.php'); 
     ?>
-    <form action="validator.php" method="POST" id="myForm">
+    <div class="testbox">
+    <form action="validator.php" method="POST" id="myForm" enctype="multipart/form-data">
+        <div class="banner">
+          <h1>Baner ili slika od DIZAJNERKE</h1>
+        </div>
+        <br>
         <?php findAllCategories(); ?>
         <!-- Kategorija: <input type="text" name="kategorija" class="form-group" id="" required>
         <span class="error-kategorija error">Missing Name</span> -->
         <br>
         opstina: 
+        <br>
         <select id="" name="opstina">
             <option value="podgorica">Podgorica</option>
             <option value="danilovgrad">Danilovgrad</option>
@@ -32,7 +40,7 @@
         <br>
 
 
-Post Image: <input type="file" name="attachment"> 
+Post Image: <input type="file" name="attachment" id="myImg"> 
 
         <br>
 
@@ -45,6 +53,7 @@ Post Image: <input type="file" name="attachment">
         <button type="submit">Submit</button>
         <div id="message"></div>
     </form>
+</div>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function(){
@@ -53,12 +62,18 @@ Post Image: <input type="file" name="attachment">
             $('button[type=submit], input[type=submit]').prop('disabled',true);
             $('.error').hide();
             $('#message').html('Sending....');
-            var data = $('#myForm').serialize();
+            // var data = $('#myForm').serialize();
+            
+            var form = $('#myForm')[0];
+            var data = new FormData(form);
+            
             console.log(data);
             $.ajax({
                 type: 'POST',
                 url: 'validator.php',
                 data,
+                processData: false,
+                contentType: false,
                 dataType: 'json',
                 success: function(d){
                     $('button[type=submit], input[type=submit]').prop('disabled',false);

@@ -17,9 +17,10 @@ $kategorija = $_POST['kategorija'];
 $post_image = $_FILES['attachment']['name'];
 $post_image_temp = $_FILES['attachment']['tmp_name'];
 // $attachment 
+
 move_uploaded_file($post_image_temp, "./images/$post_image");
 
-$upisi = insertPrijava($kategorija, $opstina, $opis, $post_image_temp, $email, $name);
+$upisi = insertPrijava($kategorija, $opstina, $opis, $post_image, $email, $name);
 //echo '<script>' .var_dump($upisi) . '</script>';
 // var_dump($upisi);
 if($upisi){
