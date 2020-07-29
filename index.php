@@ -35,7 +35,9 @@
         </select>
         <span class="error-opstina error">Missing Email</span>
         <br>
-        opis nepravilnosti: <textarea id="" name="opis" rows="4" cols="50" required></textarea>
+        opis nepravilnosti: 
+        <br>
+        <textarea id="" name="opis" rows="4" cols="50" required></textarea>
         <span class="error-opis error">Missing Email</span>
         <br>
 
@@ -50,12 +52,21 @@ Post Image: <input type="file" name="attachment" id="myImg">
         Email: <input type="email" name="email" class="form-group" id="">
         <span class="error-email error">Missing Email</span>
         <br>
-        <button type="submit">Submit</button>
+        <div class="g-recaptcha" data-sitekey="SITEKEYYYYYY" style="margin-bottom: 10px;"></div>
+        <button type="submit" data-callback='onSubmit'>Submit</button>
+        <!-- <button class="g-recaptcha" 
+        data-sitekey="reCAPTCHA_site_key" 
+        data-callback='onSubmit' 
+        data-action='submit'>Submit</button> -->
         <div id="message"></div>
     </form>
 </div>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
     <script>
+    function onSubmit(token) {
+     document.getElementById("#myForm").submit();
+    }
     $(document).ready(function(){
         $('form').submit(function(e){
             e.preventDefault();

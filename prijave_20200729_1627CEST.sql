@@ -1,7 +1,7 @@
 #
 # SQL Export
 # Created by Querious (300050)
-# Created: 29 July 2020 at 08:26:17 CEST
+# Created: 29 July 2020 at 16:27:21 CEST
 # Encoding: Unicode (UTF-8)
 #
 
@@ -20,6 +20,7 @@ SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 
 
 
+DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `prijava`;
 DROP TABLE IF EXISTS `kategorija`;
 
@@ -43,7 +44,23 @@ CREATE TABLE `prijava` (
   `datum_i` varchar(100) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `dateCreated` datetime NOT NULL,
+  `username` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `salt` varchar(250) NOT NULL,
+  `roleId` int(11) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `IsActive` int(1) DEFAULT '1',
+  `last_login` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 
 
@@ -108,7 +125,13 @@ INSERT INTO `prijava` (`id`, `kategorija`, `grad`, `primjedba`, `attachment`, `e
 	(43,1,'podgorica','Snjs','A6EC4767-8B26-4671-8775-13BF50250FBC.jpeg','','','2020-07-28 17:23:13',1),
 	(44,1,'podgorica','Snjs','A6EC4767-8B26-4671-8775-13BF50250FBC.jpeg','','','2020-07-28 17:23:13',1),
 	(45,1,'podgorica','Shsh','image.jpg','','','2020-07-28 17:23:13',1),
-	(46,1,'podgorica','das','','','','2020-07-28 17:23:13',1);
+	(46,1,'podgorica','das','','','','2020-07-28 17:23:13',1),
+	(47,2,'budva','proba','','','','2020-07-29 08:27:25',1),
+	(48,3,'budva','dsadas','','','','2020-07-29 14:00:48',1);
+UNLOCK TABLES;
+
+
+LOCK TABLES `users` WRITE;
 UNLOCK TABLES;
 
 
@@ -127,5 +150,5 @@ SET SQL_MODE = @ORIG_SQL_MODE;
 
 
 
-# Export Finished: 29 July 2020 at 08:26:17 CEST
+# Export Finished: 29 July 2020 at 16:27:21 CEST
 
