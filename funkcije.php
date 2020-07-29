@@ -58,7 +58,8 @@ function findAllCategories() {
     while ($row = mysqli_fetch_assoc($select_categories)){
         $cat_id = $row['id'];
         $cat_title = $row['naziv'];
-        echo "<option value='$cat_id'>$cat_title</option><";
+        $cat_opis = $row['opis'];
+        echo "<option title='$cat_opis' value='$cat_id'>$cat_title</option>";
     }
     echo "</select>";
 }
