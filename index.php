@@ -28,10 +28,10 @@
         opstina: 
         <br>
         <select id="" name="opstina">
-            <option value="podgorica">Podgorica</option>
-            <option value="danilovgrad">Danilovgrad</option>
-            <option value="budva">Budva</option>
-            <option value="bar">Bar</option>
+            <option value="1">Podgorica</option>
+            <option value="4">Niksic</option>
+            <option value="2">Budva</option>
+            <option value="3">Bar</option>
         </select>
         <span class="error-opstina error">Missing Email</span>
         <br>
@@ -42,10 +42,10 @@
         <br>
 
 
-<!-- Post Image: <input type="file" name="attachment" id="myImg">  -->
+Post Image: <input type="file" name="attachment" id="myImg"> 
  
-<div id="myDropzone" class="dropzone"></div>
-        <br>
+<!-- <div id="myDropzone" class="dropzone"></div>
+        <br> -->
 
         Name: <input type="text" name="name" class="form-group" id="">
         <span class="error-name error">Missing Name</span>
@@ -54,30 +54,15 @@
         <span class="error-email error">Missing Email</span>
         <br>
         <input type="hidden" id="token" name="token">
-        <!-- <div class="g-recaptcha" data-action='submit' data-sitekey="6Lfz17cZAAAAAKTuI1Qas0gHZcRK4-aack3BRTvr" style="margin-bottom: 10px;"></div> -->
-        <button type="submit">Submit</button>
-        <!-- <button class="g-recaptcha" 
-        data-sitekey="6Lfz17cZAAAAAKTuI1Qas0gHZcRK4-aack3BRTvr" 
-        data-callback='onSubmit' 
-        data-action='submit'>Submit</button> -->
-        <!-- 6Lfz17cZAAAAANpPh3ayo5-6n3K5B8PUt12egQbt -->
+         <button type="submit">Submit</button>
+        
         <div id="message"></div>
     </form>
 </div>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lfz17cZAAAAAKTuI1Qas0gHZcRK4-aack3BRTvr"></script>
+   
     <script src="./js/dropzone.min.js"></script>
     <script>
-            grecaptcha.ready(function() {
-                grecaptcha.execute('6Lfz17cZAAAAAKTuI1Qas0gHZcRK4-aack3BRTvr', {action: 'homepage'}).then(function(token) {
-                    // console.log(token);
-                    document.getElementById("token").value = token;
-                });
-            });
-    <script>
-    // function onSubmit(token) {
-    //  document.getElementById("myForm").submit();
-    // }
     $(document).ready(function(){
         $('form').submit(function(e){
             e.preventDefault();
@@ -123,6 +108,6 @@
             })
         })
     })
-    </script>
+   </script>
 </body>
 </html>
