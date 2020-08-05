@@ -113,7 +113,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="table-responsive table--no-card m-b-12">
                             <div class="input-group"> <span class="input-group-addon">Filter</span>
                                 <input id="filter" type="text" class="form-control col-3" placeholder="Type here...">
-                                <select name="select" id="select" class="form-control col-3">
+                                <select name="select" id="select" class="form-control">
                                     <option value="0">pretraga po Statusu</option>
                                     <option value="1">Option #1</option>
                                     <option value="2">Option #2</option>
