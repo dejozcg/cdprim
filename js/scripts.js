@@ -167,8 +167,14 @@ Version: 1.0
 				onyxDropzone.on("addedfile", function(file) { 
 					$('.preview-container').css('visibility', 'visible');
 					file.previewElement.classList.add('type-' + base.fileType(file.name)); // Add type class for this element's preview
+					$(".uploaded-files-count").html(onyxDropzone.getAcceptedFiles().length);
+					console.log('addedfile');
 				});
-
+				onyxDropzone.on("addedfiles", function(file) { 
+				 
+					$(".uploaded-files-count").html(onyxDropzone.getAcceptedFiles().length);
+					console.log('addedfiles');
+				});
 				onyxDropzone.on("totaluploadprogress", function (progress) {
 
 					var progr = document.querySelector(".progress .determinate");
@@ -194,47 +200,41 @@ Version: 1.0
 
 					// Remove no files notice
 					$(".no-files-uploaded").slideUp("easeInExpo");
-
+					//$(".uploaded-files-count").html(onyxDropzone.getAcceptedFiles().length);
+					//console.log('addedfile',onyxDropzone.getAcceptedFiles().length);
 				});
 
 				onyxDropzone.on('removedfile', function (file) {
 
-					$.ajax({
-						type: "POST",
-						url: ($(target).attr("action")) ? $(target).attr("action") : "../../file-upload.php",
-						data: {
-							target_file: file.upload_ticket,
-							delete_file: 1
-						}
-					});
-
+				 
 					// Show no files notice
 					if ( base.dropzoneCount() == 0 ) {
 						$(".no-files-uploaded").slideDown("easeInExpo");
-						$(".uploaded-files-count").html(base.dropzoneCount());
+						$(".uploaded-files-count").html((onyxDropzone.getAcceptedFiles().length));
 					}
 
 				});
-				// onyxDropzone.on("successmultiple", function(file, response) {
-				// 	// get response from successful ajax request
-				// 	console.log('nakon uspjesnog requesta',JSON.stringify(response));
-				// 	// submit the form after images upload
-				// 	// (if u want yo submit rest of the inputs in the form)
-				// 	document.getElementById("fajlovi").value = JSON.stringify(response);
-				// 	document.getElementById("dropzone-form").submit();
-				// });
-				onyxDropzone.on("success", function(file, response) {
-					console.log('nakon  requesta',JSON.stringify(response));
-				//	let parsedResponse = JSON.parse(response);
-				//	file.upload_ticket = parsedResponse.file_link;
-					document.getElementById("fajlovi").value = JSON.stringify(response);
-					//document.getElementById("dropzone-form").submit();
+				onyxDropzone.on("successmultiple", function(file, response) { 
+					document.getElementById("fajlovi").value = JSON.stringify(response); 
 					SendPrijava();
-					// Make it wait a little bit to take the new element
 					setTimeout(function(){
 						$(".uploaded-files-count").html(base.dropzoneCount());
 						console.log('Files count: ' + base.dropzoneCount());
 					}, 350);
+
+				});
+				onyxDropzone.on("success", function(file, response) {
+					//console.log('nakon  requesta',JSON.stringify(response));
+				//	let parsedResponse = JSON.parse(response);
+				//	file.upload_ticket = parsedResponse.file_link;
+					// document.getElementById("fajlovi").value = JSON.stringify(response);
+					//document.getElementById("dropzone-form").submit();
+					// SendPrijava();
+					// Make it wait a little bit to take the new element
+					// setTimeout(function(){
+					// 	$(".uploaded-files-count").html(base.dropzoneCount());
+					// 	console.log('Files count: ' + base.dropzoneCount());
+					// }, 350);
 
 
 					// Something to happen when file is uploaded, like showing a message
@@ -289,41 +289,83 @@ Version: 1.0
 				}  
 			}
 		});
+		doThisOnChange('');
 	});
 
 }(jQuery);
+
+function doThisOnChange(value)
+    {
+		console.log(value);
+		var selKategorija = document.getElementById('kategorija');
+		// DEJAN - promijenio sam ovu liniju maknuo sam -1 da value ne umanjuje var option = document.getElementById('kategorija').options[value-1];
+		if(value == ''){
+			var option = document.getElementById('kategorija').options[value];
+			var selKategorijaOpis = document.getElementById('kategorija_opis');
+			selKategorijaOpis.innerText = '';
+			console.log(option);
+			selKategorijaOpis.style.display = 'block'; 
+		}else {
+			var option = document.getElementById('kategorija').options[value];
+			var e = document.getElementById("kategorija");
+			var text = e.options[e.selectedIndex].title;
+			var selKategorijaOpis = document.getElementById('kategorija_opis');
+			selKategorijaOpis.innerText = text;
+			// console.log(option.title);
+			console.log(text);
+			selKategorijaOpis.style.display = 'block'; 
+		}
+	}
+
+	// function doThisOnChange(value)
+    // {
+	// 	console.log(value);
+	// 	var selKategorija = document.getElementById('kategorija');
+    //     var option = document.getElementById('kategorija').options[value-1];
+	// 	var selKategorijaOpis = document.getElementById('kategorija_opis');
+	// 	selKategorijaOpis.innerText = option.title;
+	// 	console.log(option.title);
+	// 	selKategorijaOpis.style.display = 'block'; 
+	// }
+	
 function CheckForm(){
 	var invalid = false;
+	kategorija
+	var kateg = document.getElementById('kategorija');
+	var kateg_warning = document.getElementById('kateg_warning');
+	var opstina = document.getElementById('opstina');
+	var opstina_warning = document.getElementById('opstina_warning');
 	var name = document.getElementById('name');
     var name_warning = document.getElementById('name_warning');
 	var email = document.getElementById('email');
 	var email_warning = document.getElementById('email_warning');
     var opis = document.getElementById('opis');
 	var opis_warning = document.getElementById('opis_warning');
-	if(!(name && name.value)){
-		name_warning.style.display = 'block'; 
-		if (!name.classList.contains('is-invalid')) {
-			name.classList.add('is-invalid'); 
-		} 
-		invalid = true;
-	} else {
-		name_warning.style.display = 'none';
-		if (name.classList.contains('is-invalid')) {
-			name.classList.remove('is-invalid'); 
-		}  
-	}
-	if(!(email && email.value)){
-		email_warning.style.display = 'block'; 
-		if (!email.classList.contains('is-invalid')) {
-			email.classList.add('is-invalid'); 
-		} 
-		invalid = true;
-	} else {
-		email_warning.style.display = 'none';
-		if (email.classList.contains('is-invalid')) {
-			email.classList.remove('is-invalid'); 
-		}  
-	}
+	// DEJAN - ime i email ne treba da su obavezni
+	// if(!(name && name.value)){
+	// 	name_warning.style.display = 'block'; 
+	// 	if (!name.classList.contains('is-invalid')) {
+	// 		name.classList.add('is-invalid'); 
+	// 	} 
+	// 	invalid = true;
+	// } else {
+	// 	name_warning.style.display = 'none';
+	// 	if (name.classList.contains('is-invalid')) {
+	// 		name.classList.remove('is-invalid'); 
+	// 	}  
+	// }
+	// if(!(email && email.value)){
+	// 	email_warning.style.display = 'block'; 
+	// 	if (!email.classList.contains('is-invalid')) {
+	// 		email.classList.add('is-invalid'); 
+	// 	} 
+	// 	invalid = true;
+	// } else {
+	// 	email_warning.style.display = 'none';
+	// 	if (email.classList.contains('is-invalid')) {
+	// 		email.classList.remove('is-invalid'); 
+	// 	}  
+	// }
 	if(!(opis && opis.value)){
 		opis_warning.style.display = 'block'; 
 		if (!opis.classList.contains('is-invalid')) {
@@ -334,6 +376,30 @@ function CheckForm(){
 		opis_warning.style.display = 'none';
 		if (opis.classList.contains('is-invalid')) {
 			opis.classList.remove('is-invalid'); 
+		}  
+	}
+	if(!(kateg && kateg.value)){
+		kateg_warning.style.display = 'block'; 
+		if (!kateg.classList.contains('is-invalid')) {
+			kateg.classList.add('is-invalid'); 
+		} 
+		invalid = true;
+	} else {
+		kateg_warning.style.display = 'none';
+		if (kateg.classList.contains('is-invalid')) {
+			kateg.classList.remove('is-invalid'); 
+		}  
+	}
+	if(!(opstina && opstina.value)){
+		opstina_warning.style.display = 'block'; 
+		if (!opstina.classList.contains('is-invalid')) {
+			opstina.classList.add('is-invalid'); 
+		} 
+		invalid = true;
+	} else {
+		opstina_warning.style.display = 'none';
+		if (opstina.classList.contains('is-invalid')) {
+			opstina.classList.remove('is-invalid'); 
 		}  
 	}
 	return invalid;
@@ -360,8 +426,9 @@ function SendPrijava(){
 						document.getElementById('input_form').style.display = 'none'; 
 						document.getElementById('animation').style.display = 'block'; 
                     }else{
-                        $('#message').html(d.message);
-                       
+						if(d.errors && d.errors == 'captcha_error'){
+							document.getElementById('captcha_warning').style.display = 'block'; 
+						} 
                     }
                      
 				}
