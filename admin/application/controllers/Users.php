@@ -131,7 +131,7 @@ class Users extends CI_Controller {
             'trim|required|min_length[3]|is_unique[users.username]',
             array(
                     'required'      => 'You have not provided %s.',
-                    'is_unique'     => 'This %s already exists.'
+                    'is_unique'     => 'Ovaj %s vec postoji.'
             )
         );
         $this->form_validation->set_rules(
@@ -139,7 +139,7 @@ class Users extends CI_Controller {
             'trim|required|is_unique[users.email]',
             array(
                     'required'      => 'You have not provided %s.',
-                    'is_unique'     => 'This %s already exists.'
+                    'is_unique'     => 'Ovaj %s vec postoji.'
             )
         );
         
@@ -155,7 +155,8 @@ class Users extends CI_Controller {
             'conpassword', 'Confirm Password',
             'trim|required|matches[password]',
             array(
-                    'required'      => 'You have not provided %s.'
+                    'required'      => 'You have not provided %s.',
+                    'matches'       => 'Password i comfirm password moraju da budu istih vrijednosti.'
             )
         );
 
@@ -191,7 +192,7 @@ class Users extends CI_Controller {
             $q_post['queued'] = $this->Users_model->insert($data);
             $data['title'] = 'Users';
             //$this->output->enable_profiler();
-            redirect('/users/index');
+            redirect('/users');
         }
     }
 
@@ -202,7 +203,7 @@ class Users extends CI_Controller {
     public function delete ($id){
         $this->no_Admin_permition();
         $this->Users_model->delete($id);
-        redirect('/users/index');
+        redirect('/users');
     }
 
     public function edit (){
@@ -227,7 +228,7 @@ class Users extends CI_Controller {
             'trim|required|min_length[3]'.$is_uniqueUn,
             array(
                     'required'      => 'You have not provided %s.',
-                    'is_unique'     => 'This %s already exists.'
+                    'is_unique'     => ' %s vec postoji.'
             )
         );
         $this->form_validation->set_rules(
@@ -235,13 +236,13 @@ class Users extends CI_Controller {
             'trim|required'.$is_uniqueEm,
             array(
                     'required'      => 'You have not provided %s.',
-                    'is_unique'     => 'This %s already exists.'
+                    'is_unique'     => ' %s vec postoji.'
             )
         );
         
         $this->form_validation->set_rules(
             'password', 'Password',
-            'trim|required|min_length[6]',
+            'trim|required|min_length[8]',
             array(
                     'required'      => 'You have not provided %s.'
             )
@@ -276,7 +277,7 @@ class Users extends CI_Controller {
             $this->Users_model->update($data, $this->input->post('id'));
             $data['title'] = 'Users';
             //$this->output->enable_profiler();
-            redirect('/users/index');
+            redirect('/users');
         }
     }
     

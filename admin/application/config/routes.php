@@ -59,16 +59,19 @@ $route['kategorije'] = 'Kategorije/index';
 $route['create/(:any)'] = 'Dashboard/createPDF/$1';
 $route['prijava/(:any)'] = 'Dashboard/editPrijava/$1';
 $route['deleteusr/(:any)'] = 'Users/delete/$1';
+$route['showusers/(:any)'] = 'Users/show/$1';
+$route['editusers'] = 'Users/edit';
+$route['createuesrs'] = 'Users/createusr';
 
 // $route['cancel_edit/(:any)'] = 'FB_post/cancel_edit_post/$1';
 // $route['halt/(:any)'] = 'FB_post/halt/$1';
 // $route['set_draft/(:any)'] = 'FB_post/set_as_draft_post/$1';
 // $route['resume/(:any)'] = 'FB_post/resume/$1';
-// $route['editusers'] = 'Users/edit';
-// $route['showusers/(:any)'] = 'Users/show/$1';
+
+
 // $route['login'] = 'login/login';
 
-// $route['createuesrs'] = 'Users/createusr';
+// 
 // $route['groups'] = 'Groups/index';
 // $route['pages'] = 'Pages/index';
 // $route['addgrp'] = 'Groups/addgroup';

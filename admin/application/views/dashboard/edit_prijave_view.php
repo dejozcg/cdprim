@@ -22,61 +22,74 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <strong>Detalji podnijete</strong> prijave
                             </div>
                             <div class="card-body card-block">
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">ID</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static"><?php echo $prijava['id']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Datum primjedbe</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static"><?php echo $prijava['datum_i']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Status</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static"><?php echo $prijava['status']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Kategorija</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static"><?php echo $prijava['kategorija']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Opis kategorije</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static"><?php echo $prijava['opis']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Grad</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static"><?php echo $prijava['grad']; ?></p>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Primjedba</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static"><?php echo $prijava['primjedba']; ?></p>
+                                    </div>
+                                </div>
                                 <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                     <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label class=" form-control-label">ID</label>
+                                            <label for="select" class=" form-control-label">Promijeni status prijave</label>
                                         </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static"><?php echo $prijava['id']; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Datum primjedbe</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static"><?php echo $prijava['datum_i']; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Status</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static"><?php echo $prijava['status']; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Kategorija</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static"><?php echo $prijava['kategorija']; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Opis kategorije</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static"><?php echo $prijava['opis']; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Grad</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static"><?php echo $prijava['grad']; ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3">
-                                            <label class=" form-control-label">Primjedba</label>
-                                        </div>
-                                        <div class="col-12 col-md-9">
-                                            <p class="form-control-static"><?php echo $prijava['primjedba']; ?></p>
+                                        <div class="col-12 col-md-6">
+                                            <select name="select" id="select" class="form-control">
+                                                <option value="0">Please select</option>
+                                                <option value="1">Option #1</option>
+                                                <option value="2">Option #2</option>
+                                                <option value="3">Option #3</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <!-- <div class="row form-group">
@@ -182,7 +195,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <button type="submit" class="btn btn-primary btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Submit
                                 </button>
-                                <a href="<?=base_url()?>create/<?php echo $prijava['id']; ?>" class="btn btn-dark btn-sm">
+                                <a href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>" class="btn btn-dark btn-sm">
                                     <i class="fa fa-print"></i> Stampa prijave
                                 </a>
                                 <button type="reset" class="btn btn-danger btn-sm">

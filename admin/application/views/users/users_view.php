@@ -21,8 +21,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <h3 class="title-5 m-b-35">data table</h3>
                         <div class="table-data__tool">
                             <div class="table-data__tool-right">
-                                <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                    <i class="zmdi zmdi-plus"></i>novi korisnik</button>
+                                <a href="<?=base_url()?>createuesrs" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                    <i class="zmdi zmdi-plus"></i>novi korisnik</a>
                             </div>
                         </div>
                         <div class="table-responsive table-responsive-data2">
