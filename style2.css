@@ -179,7 +179,7 @@ h6 > span:first-of-type {
 .files-container {
     position: relative;
     margin: 30px 2px 15px 2px;
-    background-color: rgba(0, 0, 0, .2);
+    background-color: rgba(0, 0, 0, .1);
 }
 .files-container span {
     display: block;
@@ -193,7 +193,8 @@ h6 > span:first-of-type {
 .files-container.hover {
     background-color: rgba(255, 255, 255, .1);
     border: 1px dashed rgba(255, 255, 255, .5);
-    color: rgba(255, 255, 255, .85);
+    /* color: rgba(255, 255, 255, .85); */
+    color: #8f105f;
 }
 .files-container {
     position: relative;
