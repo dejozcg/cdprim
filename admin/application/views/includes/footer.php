@@ -19,7 +19,8 @@
   <script src="<?=base_url()?>theme/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
   <script src="<?=base_url()?>theme/vendor/chartjs/Chart.bundle.min.js"></script>
   <script src="<?=base_url()?>theme/vendor/select2/select2.min.js"></script>
-  <script src="<?=base_url()?>theme/js/sweetalert2.all.min.js"></script>
+  <!-- <script src="<?=base_url()?>theme/js/sweetalert2.all.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 
   <!-- Main JS-->

@@ -152,7 +152,12 @@ Version: 1.0
 					// Make sure that the form isn't actually being sent.
 					e.preventDefault();
 					e.stopPropagation();
-				
+					if(CheckForm()){
+						return
+					}
+					if(! CheckCaptcha()){
+						return
+					}
 					if (onyxDropzone.files != "") {
 						// console.log(myDropzone.files);
 						//onyxDropzone.enqueueFiles(onyxDropzone.getFilesWithStatus(Dropzone.ADDED));
@@ -224,6 +229,7 @@ Version: 1.0
 
 				});
 				onyxDropzone.on("success", function(file, response) {
+					console.log('success event');
 					//console.log('nakon  requesta',JSON.stringify(response));
 				//	let parsedResponse = JSON.parse(response);
 				//	file.upload_ticket = parsedResponse.file_link;
@@ -262,6 +268,8 @@ Version: 1.0
 		document.getElementById('name_warning').style.display = 'none'; 
 		document.getElementById('email_warning').style.display = 'none'; 
 		document.getElementById('opis_warning').style.display = 'none'; 
+		document.getElementById('kateg_warning').style.display = 'none'; 
+		document.getElementById('opstina_warning').style.display = 'none'; 
 		var name = document.getElementById('name');
 		name.addEventListener('change', function(e) { 
 			if(name && name.value){
@@ -289,11 +297,29 @@ Version: 1.0
 				}  
 			}
 		});
+		var opstina = document.getElementById('opstina');
+		opstina.addEventListener('change', function(e) { 
+			if(opstina && opstina.value){
+				opstina_warning.style.display = 'none';
+				if (opstina.classList.contains('is-invalid')) {
+					opstina.classList.remove('is-invalid'); 
+				}  
+			}
+		});
+		var kategorija = document.getElementById('kategorija');
+		kategorija.addEventListener('change', function(e) { 
+			if(kategorija && kategorija.value){
+				kateg_warning.style.display = 'none';
+				if (kategorija.classList.contains('is-invalid')) {
+					kategorija.classList.remove('is-invalid'); 
+				}  
+			}
+		});
 		doThisOnChange('');
 	});
 
 }(jQuery);
-
+	
 function doThisOnChange(value)
     {
 		console.log(value);
@@ -316,18 +342,18 @@ function doThisOnChange(value)
 			selKategorijaOpis.style.display = 'block'; 
 		}
 	}
-
-	// function doThisOnChange(value)
-    // {
-	// 	console.log(value);
-	// 	var selKategorija = document.getElementById('kategorija');
-    //     var option = document.getElementById('kategorija').options[value-1];
-	// 	var selKategorijaOpis = document.getElementById('kategorija_opis');
-	// 	selKategorijaOpis.innerText = option.title;
-	// 	console.log(option.title);
-	// 	selKategorijaOpis.style.display = 'block'; 
-	// }
-	
+function CheckCaptcha(){
+	var v = grecaptcha.getResponse();
+    if(v.length == 0)
+    {
+		document.getElementById('captcha_warning').style.display = 'block';  
+        return false;
+    }
+    else
+    { 
+        return true; 
+    }
+}
 function CheckForm(){
 	var invalid = false;
 	kategorija

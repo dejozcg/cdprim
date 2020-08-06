@@ -1,5 +1,4 @@
 <?php
-    include "db.php";
     include "funkcije.php";
 // sleep(3);
 $errors = array();

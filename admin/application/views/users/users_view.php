@@ -59,7 +59,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                         <a class="item" href="<?= base_url() ?>showusers/<?php echo $user['id']; ?>" title="Edit">
                                                             <i class="zmdi zmdi-edit"></i>
                                                         </a>
-                                                        <a class="item" onclick="dellData(<?php echo $user['id']  . ',&#39;' . base_url() . 'deleteusr/&#39;'; ?>)" href="" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <a class="item" onclick="dellData(<?php echo $user['id']  . ',&#39;' . base_url() . 'deleteusr/&#39;'; ?>)" href="#" data-toggle="tooltip" data-placement="top" title="Delete">
                                                             <i class="zmdi zmdi-delete"></i>
                                                         </a>
                                                     </div>
@@ -84,7 +84,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <?php $this->load->view('includes/footer'); ?>
 <script>
     $(document).ready(function() {
-
+      
         (function($) {
 
             $('#filter').keyup(function() {
@@ -104,8 +104,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     function dellData(id, url) {
         event.preventDefault(); // prevent form submit
         var form = event.target.form; // storing the form
-        console.log('url', url);
-        swal.fire({
+ 
+        Swal.fire({
             text: "Are you sure you want to delete?",
             showCancelButton: true,
             confirmButtonText: "Yes!",

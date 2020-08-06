@@ -12,6 +12,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php $this->load->view('includes/header_desktop'); ?>
 
     <?php
+            $ukupno = 0;
+            $podnesen = 0;
+            $procedura = 0;
+            $odbacen = 0;
+            $rijesen = 0;
+            $izbrisane = 0;
+
     if (!empty($statistic)) {
         foreach ($statistic as $stat) {
             if ($stat['id'] == 1) {
@@ -26,8 +33,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $izbrisane = $stat['ukupno'];
             }
         }
-    }
-    $ukupno = $podnesen + $procedura + $odbacen + $rijesen;
+    } 
+
+    
+   $ukupno = $podnesen + $procedura + $odbacen + $rijesen;
 
     ?>
     <!-- MAIN CONTENT-->
@@ -48,9 +57,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="card-header user-header alt bg-dark">
                             <div class="media">
                                 <div class="media-body">
-                                    <h2 class="text-light display-6">
+                                    <h4 class="text-light display-6">Prikaz podnešenih prijava
                                     </h2>
-                                    <p>Prikaz podnešenih prijava</p>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +67,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <a href="<?= base_url() ?>prijave">
-                                            <i class="fa fa-envelope"></i> Sve prijave <?= $ukupno; ?>
+                                            <i class="fa fa-envelope" style="margin-right: 10px"></i> Sve prijave <?= $ukupno; ?>
                                             <!-- <span class="badge badge-primary pull-right"></span> -->
                                         </a>
                                     </li>
