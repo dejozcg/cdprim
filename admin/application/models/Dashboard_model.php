@@ -51,7 +51,7 @@ class Dashboard_model extends CI_Model{
     }
 
     function getPrijavu($id){
-        $this->db->select('p.id ,k.naziv kategorija, k.opis opis, g.naziv_gr grad, p.primjedba, p.datum_i, s.naziv status');
+        $this->db->select('p.id ,k.naziv kategorija, k.opis opis, g.naziv_gr grad, p.primjedba, p.datum_i, s.naziv status, s.id id_stat');
         $this->db->from('prijava p');
         $this->db->join('status s', 's.id = p.status');
         $this->db->join('kategorija k', 'k.id = p.kategorija');    
@@ -60,6 +60,30 @@ class Dashboard_model extends CI_Model{
         
         $query = $this->db->get();
         return ($query->num_rows() > 0)?$query->result_array():array();
+    }
+
+    function getFajlove($id){
+        $this->db->select('file_name, file_path');
+        $this->db->from('fajlovi');
+        $this->db->where("id_prijave = $id");
+        
+        $query = $this->db->get();
+        return ($query->num_rows() > 0)?$query->result_array():array();
+    }
+
+    function getStatusi() {
+        $this->db->select();
+        $this->db->from('status');
+        $query = $this->db->get();
+        return ($query->num_rows() > 0)?$query->result_array():array();
+    }
+
+    function updatePrijave($id, $idstat) {
+		$this->db->set('status', $idstat);
+		$this->db->where('id', $id);
+		$this->db->update('prijava');
+
+		return $this->db->affected_rows() > 0;
     }
     
     function getRowsCount(){

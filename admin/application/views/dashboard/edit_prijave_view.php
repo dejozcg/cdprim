@@ -78,30 +78,45 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <p class="form-control-static"><?php echo $prijava['primjedba']; ?></p>
                                     </div>
                                 </div>
-                                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="password-input" class=" form-control-label">Prilozi</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                        <?php if(!empty($fajlovi)) : foreach($fajlovi as $file): ?>
+                                        <a href="<?php echo $file['file_path']; ?>">
+                                            <p class="form-control-static"><?php echo $file['file_path']; ?></p>
+                                        </a> <br>
+                                        <?php endforeach; endif; ?>
+                                        </div>
+                                    </div>
+                                <?php echo form_open('promijeniStat'); ?>
+                                    <input type="hidden" name="idprij" value="<?php echo $prijava['id']; ?>">
                                     <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="select" class=" form-control-label">Promijeni status prijave</label>
                                         </div>
                                         <div class="col-12 col-md-6">
-                                            <select name="select" id="select" class="form-control">
-                                                <option value="0">Please select</option>
-                                                <option value="1">Option #1</option>
-                                                <option value="2">Option #2</option>
-                                                <option value="3">Option #3</option>
+                                            <select name="status" id="select" class="form-control">
+                                                <option value="<?php echo $prijava['id_stat']; ?>"><?php echo $prijava['status']; ?></option>
+                                                <?php if (!empty($statusi)) : foreach ($statusi as $status) : ?>
+                                                        <?php echo "<option value='{$status['id']}'>{$status['naziv']}</option>"; ?>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </select>
                                         </div>
                                     </div>
-                                    <!-- <div class="row form-group">
+                                    <div class="row form-group">
                                         <div class="col col-md-3">
-                                            <label for="text-input" class=" form-control-label">Text Input</label>
+                                            <label for="text-input" class=" form-control-label"></label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control">
-                                            <small class="form-text text-muted">This is a help text</small>
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <i class="fa fa-dot-circle-o"></i> Promijeni status
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="row form-group">
+                                    <!-- <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="email-input" class=" form-control-label">Email Input</label>
                                         </div>
@@ -192,9 +207,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-dot-circle-o"></i> Submit
-                                </button>
                                 <a href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>" class="btn btn-dark btn-sm">
                                     <i class="fa fa-print"></i> Stampa prijave
                                 </a>

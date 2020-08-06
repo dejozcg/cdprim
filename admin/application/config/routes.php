@@ -62,6 +62,7 @@ $route['deleteusr/(:any)'] = 'Users/delete/$1';
 $route['showusers/(:any)'] = 'Users/show/$1';
 $route['editusers'] = 'Users/edit';
 $route['createuesrs'] = 'Users/createusr';
+$route['promijeniStat'] = 'Dashboard/promjenaStatusa';
 
 // $route['cancel_edit/(:any)'] = 'FB_post/cancel_edit_post/$1';
 // $route['halt/(:any)'] = 'FB_post/halt/$1';

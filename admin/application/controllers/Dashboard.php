@@ -85,11 +85,27 @@ class Dashboard extends CI_Controller {
 
         $data['prijava'] = $this->Dashboard_model->getPrijavu($id);
         $data['prijava'] = array_shift($data['prijava']);
+        $data['fajlovi'] = $this->Dashboard_model->getFajlove($id);
+        $data['statusi'] = $this->Dashboard_model->getStatusi();
+        // $data['statusi'] = array_shift($data['statusi']);
+
         // echo '<pre>';
         // print_r($data['prijava']);
         // echo '</pre>';
         // $this->output->enable_profiler();
         $this->load->view('dashboard/edit_prijave_view', $data);
+    }
+
+    public function promjenaStatusa(){
+        $id = $this->input->post('idprij');
+        $idstat = $this->input->post('status');
+        // var_dump($id);
+        // var_dump($idstat);
+        $this->Dashboard_model->updatePrijave($id, $idstat);
+        // redirect($_SERVER['REQUEST_URI'], 'refresh'); 
+        // $this->editPrijava($id);
+        // redirect('/prijava' . $id);
+        redirect("prijava/$id");
     }
     
     public function createPDF($id){
