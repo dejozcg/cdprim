@@ -13,60 +13,55 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <!-- MAIN CONTENT-->
     <div class="main-content">
-    <div class="section__content section__content--p30">
+        <div class="section__content section__content--p30">
             <div class="container-fluid">
                 <div class="row m-t-30">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <!-- DATA TABLE-->
                         <div class="table-responsive m-b-40">
                             <!-- DATA TABLE -->
-                            <h3 class="title-5 m-b-35">Pregled kategorija</h3>
+                            <h3 class="title-5 m-b-35">Pregled opština</h3>
                             <div class="table-data__tool">
                                 <div class="table-data__tool-right">
-                                    <a href="<?= base_url() ?>createkategorija" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                        <i class="zmdi zmdi-plus"></i>nova kategorija</a>
+                                    <a href="<?= base_url() ?>createopstina" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                                        <i class="zmdi zmdi-plus"></i>nova opština</a>
                                 </div>
                             </div>
                                 <div class="input-group"> <span class="input-group-addon">Filter</span>
-                                    <input id="filter" type="text" class="form-control col-12" placeholder="Type here...">
+                                    <input id="filter" type="text" class="form-control col-10" placeholder="Type here...">
                                 </div>
                                 <table class="table table-borderless table-data3">
-                                <thead>
-                                    <tr>
-                                        <th>Naziv</th>
-                                        <th class="col-md-8 text-left">Opis</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="searchable">
-                                    <?php if (!empty($kategorije)) : foreach ($kategorije as $kategorija) : ?>
-                                            <tr>
-                                                <td class=""><?php echo $kategorija['naziv']; ?></td>
-                                                <td class="text-left"><?php echo $kategorija['opis']; ?></td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        <?php else : ?>
-                            <p>Nema opstina</p>
-                        <?php endif; ?>
-
-
-                        </tbody>
-                        </table>
+                                    <thead>
+                                        <th>Id</th>
+                                        <th class="text-left">Naziv</th>
+                                    </thead>
+                                    <tbody class="searchable">
+                                        <?php if (!empty($opstine)) : foreach ($opstine as $opstina) : ?>
+                                                <tr>
+                                                    <td class=""><?php echo $opstina['id']; ?></td>
+                                                    <td class="col-md-8 text-left"><?php echo $opstina['naziv_gr']; ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            <?php else : ?>
+                                <p>Nema opstina</p>
+                            <?php endif; ?>
+                            </div>
+                            <!-- END DATA TABLE-->
                         </div>
-                        <!-- END DATA TABLE-->
                     </div>
+
+                    <?php $this->load->view('includes/copyright'); ?>
                 </div>
-                <?php $this->load->view('includes/copyright'); ?>
             </div>
         </div>
     </div>
-</div>
 
 
-<?php $this->load->view('includes/footer'); ?>
+    <?php $this->load->view('includes/footer'); ?>
 
-<script>
+    <script>
     $(document).ready(function() {
       
         (function($) {

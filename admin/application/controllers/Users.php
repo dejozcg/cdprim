@@ -173,7 +173,7 @@ class Users extends CI_Controller {
             'password' => $this->hash_password($this->input->post('password'), $salt),
             'roleid' => $this->input->post('role'),
             'IsActive' => true,
-            'createdBy' => 1,
+            'createdBy' => $this->session->userdata('user')['user_id'],
             'salt' => $salt
         );
       

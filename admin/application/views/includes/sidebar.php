@@ -12,17 +12,21 @@
                             <a class="js-arrow" href="<?=base_url()?>">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                         </li>
-                        <li class="<?php if($this->uri->segment(1)=="prijave"){echo "active";}?>">
+                        <!-- <li class="<?php if($this->uri->segment(1)=="prijave"){echo "active";}?>">
                             <a href="<?=base_url()?>prijave">
                                 <i class="fas fa-book"></i>Prijave</a>
-                        </li>
-                        <li class="<?php if($this->uri->segment(1)=="users"){echo "active";}?>">
-                            <a href="<?=base_url()?>users">
+                        </li> -->
+                        <li class="<?php // if($this->uri->segment(1)=="users"){echo "active";}?>">
+                            <a href="<?//=base_url()?>users">
                                 <i class="fas fa-user"></i>Korisnici</a>
                         </li>
                         <li class="<?php if($this->uri->segment(1)=="kategorije"){echo "active";}?>">
                             <a href="<?=base_url()?>kategorije">
                                 <i class="fas fa-book"></i>Kategorije</a>
+                        </li>
+                        <li class="<?php if($this->uri->segment(1)=="opstine"){echo "active";}?>">
+                            <a href="<?=base_url()?>opstine">
+                                <i class="fas fa-book"></i>Opštine</a>
                         </li>
                     </ul>
                 </nav>
