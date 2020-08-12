@@ -334,8 +334,7 @@ class Users extends CI_Controller {
         $data = array(
             'username' => $this->input->post('username'),
             'email' => $this->input->post('email'),
-            'name' => $this->input->post('fullname'),
-            'timezone' => $this->input->post('timezone'),
+            'name' => $this->input->post('fullname')
 
             //'user_image' => isset($file_name)? $file_name:FALSE
         );
@@ -344,13 +343,11 @@ class Users extends CI_Controller {
             $data['user_image'] = "uploads/profilepictures/" . $user_image;
         }
         
-        $tz['tz'] = $this->Users_model->get_tz();
-        $tz['tz'] = array_shift($tz['tz']);
+        
 
         if ($this->form_validation->run() === FALSE){
             $data['title'] = 'Edit profile';
             $data['users'] = false;
-            $data['tz'] = $tz['tz'];
             // $this->output->enable_profiler();
             // print_r($this->session->userdata);
             $this->load->view('users/edit_profile_view', $data);

@@ -138,7 +138,55 @@ class Kategorije extends CI_Controller {
 
             // $this->output->enable_profiler();
             $data['title'] = 'Kategorije';
-            //$this->output->enable_profiler();
+            redirect('/kategorije');
+        }
+    }
+
+    public function editKat(){
+        
+        $this->no_Admin_permition();
+
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules(
+            'naziv', 'kategorija',
+            'trim|required',
+            array(
+                    'required'      => 'You have not provided %s.'
+            )
+        );
+
+        $this->form_validation->set_rules(
+            'opis', 'kategorija',
+            'trim|required',
+            array(
+                    'required'      => 'You have not provided %s.'
+            )
+        );
+
+        $data = array(
+            'naziv' => $this->input->post('naziv'),
+            'opis' => $this->input->post('opis')
+        );
+        $id = $this->input->post('id');
+      
+        if ($this->form_validation->run() === FALSE){
+            $data['title'] = 'Kategorije';
+            $data['opstina'] = false;
+            // $this->load->view('templates/header', $data);
+            // $this->load->view('news/create');
+            // $this->load->view('templates/footer');
+            // $this->load->view('users/users_view', $data);
+            $this->load->view('kategorije/edit_kategorija_view', $data);
+        }else{
+
+            // $this->input->post('role')? $data['roleid'] = $this->input->post('role'):false;
+
+            $a = $this->Kategorije_model->update($data, $id, 'kategorija');
+
+            $this->output->enable_profiler();
+            $data['title'] = 'Kategorije';
             redirect('/kategorije');
         }
     }
@@ -152,4 +200,21 @@ class Kategorije extends CI_Controller {
         }
     return true;
     }
+
+    public function delete ($id){
+        $this->no_Admin_permition();
+        $this->Kategorije_model->delete($id);
+        redirect('/kategorije');
+    }
+
+    public function showKat ($id){
+        $this->no_Admin_permition();
+        $data['kategorija'] = $this->Kategorije_model->getRowsKat($id);
+        $data['kategorija'] = array_shift($data['kategorija']);
+        $data['title'] = 'Editovanje kategorije';
+        $this->load->view('kategorije/edit_kategorija_view', $data);
+        // $this->output->enable_profiler();
+        // print_r($data['kategorija']);
+    }
+
 }

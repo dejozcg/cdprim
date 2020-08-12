@@ -35,6 +35,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <tr>
                                         <th>Naziv</th>
                                         <th class="col-md-8 text-left">Opis</th>
+                                        <th>Akcija</th>
                                     </tr>
                                 </thead>
                                 <tbody class="searchable">
@@ -42,6 +43,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <tr>
                                                 <td class=""><?php echo $kategorija['naziv']; ?></td>
                                                 <td class="text-left"><?php echo $kategorija['opis']; ?></td>
+                                                <td>
+                                                    <div class="table-data-feature">
+                                                        <a class="item" href="<?= base_url() ?>showkategory/<?php echo $kategorija['id']; ?>" title="Edit">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                        </a>
+                                                        <a class="item" onclick="dellData(<?php echo $kategorija['id']  . ',&#39;' . base_url() . 'deletekateg/&#39;'; ?>)" href="#" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                 </tbody>

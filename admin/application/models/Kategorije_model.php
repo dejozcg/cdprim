@@ -20,6 +20,17 @@ class Kategorije_model extends CI_Model{
         //return fetched data
         return ($query->num_rows() > 0)?$query->result_array():array();
     }
+
+    function getRowsKat($id = null){
+        $this->db->select();
+        $this->db->from('kategorija');
+        $this->db->where('id',$id);
+    
+        //get records
+        $query = $this->db->get();
+        //return fetched data
+        return $query->result_array();
+    }
  
     function getOpstine(){
         $this->db->select();
@@ -69,4 +80,23 @@ class Kategorije_model extends CI_Model{
         // }
         // return $id;
     }
+
+    public function delete($id){
+        $this->db->set('IsActive', false);
+        $this->db->where('id', $id);
+        $this->db->update('kategorija');
+        //$this->db->delete('users', $id);
+        return $this->db->affected_rows();
+    }
+
+    public function update($data, $id, $table){
+		foreach ($data as $key => $value) {
+			$this->db->set($key, $value);
+		}
+		$this->db->where("id", $id);
+		$this->db->update($table);
+
+		return $this->db->affected_rows() > 0;
+    }
+    
 }

@@ -47,7 +47,7 @@
 <?php // else: ?>
     ##### SIDEBAR LOGO #####
     <div class="kt-sideleft-header">
-      <div class="kt-logo"><a href="<?=base_url()?>">Datadata</a></div>
+      <div class="kt-logo"><a href="<?//=base_url()?>">Datadata</a></div>
       <div id="ktDate" class="kt-date-today"></div>
       <div class="input-group kt-input-search">
         <input type="text" class="form-control" placeholder="Search...">

@@ -59,6 +59,7 @@ $route['kategorije'] = 'Kategorije/index';
 $route['create/(:any)'] = 'Dashboard/createPDF/$1';
 $route['prijava/(:any)'] = 'Dashboard/editPrijava/$1';
 $route['deleteusr/(:any)'] = 'Users/delete/$1';
+$route['deletekateg/(:any)'] = 'Kategorije/delete/$1';
 $route['showusers/(:any)'] = 'Users/show/$1';
 $route['editusers'] = 'Users/edit';
 $route['createuesrs'] = 'Users/createusr';
@@ -66,6 +67,9 @@ $route['promijeniStat'] = 'Dashboard/promjenaStatusa';
 $route['opstine'] = 'Kategorije/show_opstine';
 $route['createopstina'] = 'Kategorije/createOpst';
 $route['createkategorija'] = 'Kategorije/createkat';
+$route['editprofile'] = 'Users/editprofile';
+$route['showkategory/(:any)'] = 'Kategorije/showKat/$1';
+$route['editkategory'] = 'Kategorije/editKat';
 
 // $route['cancel_edit/(:any)'] = 'FB_post/cancel_edit_post/$1';
 // $route['halt/(:any)'] = 'FB_post/halt/$1';

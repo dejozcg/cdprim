@@ -1,183 +1,108 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+?>
 <?php $this->load->view('includes/header'); ?>
-
-<!-- ##### SIDEBAR MENU ##### -->
+<?php $this->load->view('includes/header_mobile'); ?>
 <?php $this->load->view('includes/sidebar'); ?>
-<!-- kt-sideleft -->
 
-<!-- ##### HEAD PANEL ##### -->
-<?php $this->load->view('includes/headPanel'); ?>
-<!-- kt-breadcrumb -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>
-function searchFilter(page_num) {
-    page_num = page_num ? page_num : 0;
-    var username = $('#username').val();
-    var role = $('#role').val();
-    $.ajax({
-        type: 'POST',
-        url: '<?php echo base_url(); ?>users/ajaxPaginationData/' + page_num,
-        data: 'page=' + page_num + '&username=' + username + '&role=' + role,
-        beforeSend: function() {
-            $('.loading').show();
-        },
-        success: function(html) {
-            $('#postList').html(html);
-            $('.loading').fadeOut("slow");
-            $('#datatable1').DataTable({
-                responsive: true,
-                "paging": false,
-                "info": false,
-                searching: false,
-                retrieve: true
-            });
-        }
-    });
-}
-</script>
-<!-- ##### MAIN PANEL ##### -->
-<div class="kt-mainpanel">
-    <div class="kt-pagetitle">
-        <h5>Edit Profile</h5>
-    </div><!-- kt-pagetitle -->
+<!-- PAGE CONTAINER-->
+<div class="page-container">
 
-    <div class="kt-pagebody">
+    <?php $this->load->view('includes/header_desktop'); ?>
+    <div class="main-content">
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+                <div class="row center">
+                    <div class="col-lg-6 mr-auto ml-auto">
+                        <div class="card">
+                            <div class="card-header">Podaci o korisniku</div>
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <!-- <h3 class="text-center title-2">Podaci o korisniku</h3> -->
+                                </div>
+                                <hr>
+                                <?php echo form_open('editprofile', 'enctype="multipart/form-data"'); ?>
+                                <span class="badge badge-danger"><?php echo validation_errors(); ?><?php echo isset($errors) ? $errors : ""; ?></span>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input class="au-input au-input--full" value="<?php echo set_value('email') ? set_value('email') : $this->session->userdata('user')['email']; ?>" type="email" name="email" placeholder="Unesite email adresu" required>
+                                    <input type="hidden" name="id" class="form-control" required value="<?php echo $this->session->userdata('user')['user_id']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Ime i prezime</label>
+                                    <input class="au-input au-input--full" type="text" name="fullname" placeholder="Unesite ime i prezime" value="<?php echo  set_value('fullname') ? set_value('fullname') : $this->session->userdata('user')['name'] ?>" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input class="au-input au-input--full" type="text" name="username" placeholder="Unesite username" required value="<?php echo set_value('username') ? set_value('username') : $this->session->userdata('user')['username']; ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label>Picture: </label>
+                                    <input type="file" class="form-control-file" name="userPhoto" id="userPhoto">
+                                </div>
+                                <div class="form-group">
+                                        <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#smallmodal">
+											Reset password
+										</button>
+                                </div>
+                            
 
-        <div class="row">
-            <div class="col-md-4 col-lg-3">
-                <!-- <label class="content-left-label">Your Profile Photo</label> -->
-                <figure class="edit-profile-photo">
-                    <!-- <img src="<?//=base_url()?>uploads/sl5.jpg" class="img-fluid" alt=""> -->
-                    <!-- <figcaption>
-                        <a href="" class="btn btn-dark">Edit Photo</a>
-                    </figcaption> -->
-                </figure> 
-
-
-                <div id="modaldemo3" class="modal fade" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content tx-size-sm">
-                            <div class="modal-header pd-x-20">
-                                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Resset password</h6>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                             <?php  $attributes = array('name' => 'formRessetPass');
-                            echo form_open('ressetpwd', $attributes); ?>
-                            <div class="modal-body pd-20">
-                           
-                                <!-- <form name="formRessetPass" action="<?//=base_url()?>ressetpwd" method="POST"> -->
-
-                                    <div class='error_msg'>
-                                        <span class="tx-danger"><?php echo validation_errors(); ?></span>
-                                    </div>
-                                    <input type="password" id="password" name="password"
-                                        class="col col-md-12 form-control" placeholder="Type password" required />
-                                    <input type="password" id="conpassword" name="conpassword"
-                                        class="col col-md-12 form-control" placeholder="Retype password" required>
-                                
-                            </div><!-- modal-body -->
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-default pd-x-20">Resset</button>
-                                <button type="button" class="btn btn-secondary pd-x-20"
-                                    data-dismiss="modal">Close</button>
-                            </div>
+                            <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Edit user</button>
                             </form>
+                         
                         </div>
-                    </div><!-- modal-dialog -->
+                    </div>
                 </div>
-                <!------------------------------>
+            </div>
 
 
-
-
-
-
-            </div><!-- col-3 -->
-            <div class="col-md-8 col-lg-9 mg-t-30 mg-md-t-0">
-                <label class="content-left-label">Personal Information</label>
-                <div class="card bg-gray-200 bd-0">
-                    <div class="edit-profile-form">
-                        <?php echo form_open('editprofile', 'enctype="multipart/form-data"'); ?>
-                        <span class="tx-danger"><?php echo validation_errors(); ?></span>
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">Fullname:<span class="tx-danger">*</span></label>
-                            <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
-                                <input class="form-control" id="fullname" name="fullname" type="text" required
-                                    value="<?php echo  set_value('fullname')?set_value('fullname'):$this->session->userdata('user')['name']?>">
-                            </div>
+                              			<!-- modal small -->
+			<div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-sm" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="smallmodalLabel">Resset password</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">Email: <span class="tx-danger">*</span></label>
-                            <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
-                                <input class="form-control" id="email" name="email" type="email" required
-                                    value="<?php echo set_value('email')? set_value('email'):$this->session->userdata('user')['email']?>">
+                        <?php $attributes = array('name' => 'formRessetPass');
+                                        echo form_open('ressetpwd', $attributes); ?>
+						<div class="modal-body">
+							
+                            <div class='error_msg'>
+                                                <span class="tx-danger"><?php echo validation_errors(); ?></span>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">Username: <span
-                                    class="tx-danger">*</span></label>
-                            <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
-                                <input class="form-control" type="text" id="username" name="username" required
-                                    value="<?php echo set_value('username') ? set_value('username'):$this->session->userdata('user')['username']; ?>">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">Time zone: <span
-                                    class="tx-danger"></span></label>
-                            <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
-                            <input type="hidden" name="id" class="form-control" required value="<?php echo $this->session->userdata('user')['user_id']; ?>">
-                                <select class="form-control" name="timezone" id="timezone" required>
-                                    <?php if(!empty($tz['timezone'])): ?>
-                                    <option value="<?php echo set_value('timezone') ? set_value('timezone'):$tz['timezone']; ?>">
-                                    <?php echo set_value('timezone') ? set_value('timezone'):$tz['timezone']; ?></option>
-                                    <?php endif; ?>
-                                    <?php 
-                                        $array = DateTimeZone::listIdentifiers ();
-                                        echo "<option value=''>Chose time zone</option>";
-                                        foreach($array as $arr){
-                                            echo  "<option value='$arr'>$arr></option>";
-                                            //new \DateTimeZone($tz);
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">Picture: <span
-                                    class="tx-danger">*</span></label>
-                            <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
-                                <input type="file" class="form-control" name="userPhoto" id="userPhoto">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label">Password: <span class="tx-danger"></span></label>
-                            <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
-                                <a href="" data-toggle="modal" data-target="#modaldemo3">Change Password</a>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 form-control-label"> <span class="tx-danger"></span></label>
-                            <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
-                                <button class="btn btn-default">Update</button>
-
-                            </div>
+                                <input type="password" id="password" name="password" class="col col-md-12 form-control" placeholder="Type password" required />
+                                <input type="password" id="conpassword" name="conpassword" class="col col-md-12 form-control" placeholder="Retype password" required>
+							
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+							<button type="button" class="btn btn-primary">Potvrdi</button>
                         </div>
                         </form>
-                    </div><!-- wd-60p -->
-                </div><!-- card -->
+					</div>
+				</div>
+			</div>
+			<!-- end modal small -->
 
 
-            </div><!-- col-9 -->
-        </div><!-- row -->
 
-    </div><!-- kt-pagebody -->
+        </div>
+        <?php $this->load->view('includes/copyright'); ?>
+    </div>
+</div>
+</div>
 
-    <?php $this->load->view('includes/footer'); ?>
-    <script>
+
+<?php $this->load->view('includes/footer'); ?>
+<!-- end document-->
+
+
+<script>
     function submitform() {
         document.formRessetPass.submit();
     }
-      </script>
+</script>
+

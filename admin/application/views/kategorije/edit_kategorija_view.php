@@ -21,17 +21,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <!-- <h3 class="text-center title-2">Podaci o korisniku</h3> -->
                                 </div>
                                 <hr>
-                                <?php echo form_open('createkategorija'); ?>
+                                <?php echo form_open('editkategory'); ?>
                                 <span class="badge badge-danger"><?php echo validation_errors(); ?><?php echo isset($errors) ? $errors : ""; ?></span>
                                 <div class="form-group">
                                     <label>Naziv kategorije</label>
-                                    <input class="au-input au-input--full" value="<?php echo set_value('naziv') ? set_value('naziv') : ''; ?>" type="text" name="naziv" placeholder="Unesite naziv kategorije" required>
+                                    <input class="au-input au-input--full" value="<?php echo set_value('naziv') ? set_value('naziv') : $kategorija['naziv']; ?>" type="text" name="naziv" placeholder="Unesite naziv kategorije" required>
+                                    <input type="hidden" name="id" class="form-control" placeholder="" required value="<?php echo set_value('id') ? set_value('id') : $kategorija['id']; ?>">
                                 </div>
                                 <div class="form-group">
                                     <label>Opis kategorije</label>
-                                    <textarea class="form-control" name="opis" id="opis" cols="30" rows="10" placeholder="Unesite iopis kategorije" value="<?php echo set_value('opis') ? set_value('opis') : ''; ?>" required></textarea>
+                                    <textarea class="form-control" name="opis" id="opis" cols="30" rows="10" placeholder="Unesite opis kategorije" required><?php echo set_value('opis') ? set_value('opis') : $kategorija['opis']; ?></textarea>
                                 </div>
-                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Unesi kategoriju</button>
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Izmijeni kategoriju</button>
                                 </form>
                             </div>
                         </div>
