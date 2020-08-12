@@ -13,24 +13,24 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                        <img src="<?=base_url()?><?php echo (isset($this->session->userdata('user')['user_image']))?($this->session->userdata('user')['user_image']):'theme/images/avatar.jpg';?>" class="wd-32 rounded-circle" alt="">
+                                        <img src="<?=base_url()?><?php echo (!empty($this->session->userdata('user')['user_image']))?($this->session->userdata('user')['user_image']):'theme/images/avatar.jpg';?>" class="wd-32 rounded-circle" alt="">
                                             <!-- <img src="<?//=base_url()?>theme/images/icon/avatar-01.jpg" alt="" /> -->
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#"><?php echo (isset($this->session->userdata('user')['name']))?($this->session->userdata('user')['name']): "Jane Doe"?></a>
+                                            <a class="js-acc-btn" href="#"><?php echo (!empty($this->session->userdata('user')['name']))?($this->session->userdata('user')['name']): "Jane Doe"?></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                    <img src="<?=base_url()?><?php echo (isset($this->session->userdata('user')['user_image']))?($this->session->userdata('user')['user_image']):'theme/images/avatar.jpg';?>" class="wd-32 rounded-circle" alt="">
+                                                    <img src="<?=base_url()?><?php echo (!empty($this->session->userdata('user')['user_image']))?($this->session->userdata('user')['user_image']):'theme/images/avatar.jpg';?>" class="wd-32 rounded-circle" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#"><?php echo (isset($this->session->userdata('user')['name']))?($this->session->userdata('user')['name']): "Jane Doe"?></a>
+                                                        <a href="#"><?php echo (!empty($this->session->userdata('user')['name']))?($this->session->userdata('user')['name']): "Jane Doe"?></a>
                                                     </h5>
-                                                    <span class="email"><?php echo (isset($this->session->userdata('user')['name']))?($this->session->userdata('user')['email']): "Jane Doe"?></span>
+                                                    <span class="email"><?php echo (!empty($this->session->userdata('user')['name']))?($this->session->userdata('user')['email']): "Jane Doe"?></span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
