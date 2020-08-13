@@ -70,7 +70,7 @@ $route['createkategorija'] = 'Kategorije/createkat';
 $route['editprofile'] = 'Users/editprofile';
 $route['showkategory/(:any)'] = 'Kategorije/showKat/$1';
 $route['editkategory'] = 'Kategorije/editKat';
-
+$route['ressetpwd'] = 'Users/ressetpassword';
 // $route['cancel_edit/(:any)'] = 'FB_post/cancel_edit_post/$1';
 // $route['halt/(:any)'] = 'FB_post/halt/$1';
 // $route['set_draft/(:any)'] = 'FB_post/set_as_draft_post/$1';
@@ -91,7 +91,6 @@ $route['editkategory'] = 'Kategorije/editKat';
 // $route['editgrup/(:any)'] = 'Groups/edit/$1';
 // $route['editpage/(:any)'] = 'Pages/edit/$1';
 // $route['editprofile'] = 'Users/editprofile';
-// $route['ressetpwd'] = 'Users/ressetpassword';
 // $route['fbcheck'] = 'FBCheck';
 // $route['config'] = 'Admin/SetConfig';
 // $route['admin'] = 'Admin/index';

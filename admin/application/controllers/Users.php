@@ -399,7 +399,7 @@ class Users extends CI_Controller {
 
         $this->form_validation->set_rules(
             'password', 'Password',
-            'trim|required|min_length[6]',
+            'trim|required|min_length[8]',
             array(
                     'required'      => 'You have not provided %s.'
             )

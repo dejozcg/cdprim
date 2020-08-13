@@ -41,60 +41,53 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <input type="file" class="form-control-file" name="userPhoto" id="userPhoto">
                                 </div>
                                 <div class="form-group">
-                                        <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#smallmodal">
-											Reset password
-										</button>
+                                    <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#smallmodal">
+                                        Reset password
+                                    </button>
                                 </div>
-                            
 
-                            <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Edit user</button>
-                            </form>
-                         
+
+                                <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">Edit user</button>
+                                </form>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-                              			<!-- modal small -->
-			<div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-sm" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="smallmodalLabel">Resset password</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-                        </div>
-                        <?php $attributes = array('name' => 'formRessetPass');
-                                        echo form_open('ressetpwd', $attributes); ?>
-						<div class="modal-body">
-							
-                            <div class='error_msg'>
-                                                <span class="tx-danger"><?php echo validation_errors(); ?></span>
-                            </div>
-                                <input type="password" id="password" name="password" class="col col-md-12 form-control" placeholder="Type password" required />
-                                <input type="password" id="conpassword" name="conpassword" class="col col-md-12 form-control" placeholder="Retype password" required>
-							
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
-							<button type="button" class="btn btn-primary">Potvrdi</button>
-                        </div>
-                        </form>
-					</div>
-				</div>
-			</div>
-			<!-- end modal small -->
-
-
-
+            <?php $this->load->view('includes/copyright'); ?>
         </div>
-        <?php $this->load->view('includes/copyright'); ?>
     </div>
 </div>
-</div>
+<!-- modal small -->
+<div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="smallmodalLabel">Resset password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <?php $attributes = array('name' => 'formRessetPass');
+            echo form_open('ressetpwd', $attributes); ?>
+            <div class="modal-body">
+                <div class='error_msg'>
+                    <span class="tx-danger"><?php echo validation_errors(); ?><?php echo isset($errors) ? $errors : ""; ?></span>
+                </div>
+                <input type="password" id="password" name="password" class="col col-md-12 form-control" placeholder="Type password" required>
+                <input type="password" id="conpassword" name="conpassword" class="col col-md-12 form-control" placeholder="Retype password" required>
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Odustani</button>
+                <button type="submit" class="btn btn-primary">Potvrdi</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end modal small -->
 
 <?php $this->load->view('includes/footer'); ?>
 <!-- end document-->
@@ -105,4 +98,3 @@ defined('BASEPATH') or exit('No direct script access allowed');
         document.formRessetPass.submit();
     }
 </script>
-

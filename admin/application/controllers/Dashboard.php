@@ -7,9 +7,9 @@ class Dashboard extends CI_Controller {
             parent::__construct();
             $this->load->model('Dashboard_model');
             $this->load->library('Pdf');
-            // $this->load->helper('url_helper');
-            // $this->load->library('Ajax_pagination');
-            // $this->perPage = 4;
+            $this->load->helper('url_helper');
+            $this->load->library('Ajax_pagination');
+            $this->perPage = 40;
     }
 
     function ajaxPaginationData(){
@@ -24,26 +24,25 @@ class Dashboard extends CI_Controller {
         }
         
         //set conditions for search
-        $pagename = $this->input->post('pagename');
-        $group = $this->input->post('group');
-        $pwithoutPL24 = $this->input->post('pwithoutPL24');
-        $pwithoutPL72 = $this->input->post('pwithoutPL72');
-        
-        if(!empty($pagename)){
-            $conditions['search']['pagename'] = $pagename;
+        $status = $this->input->post('status');
+        $grad = $this->input->post('grad');
+        $datumod = $this->input->post('datumod');
+        $datumdo = $this->input->post('datumdo');
+        if(!empty($status)){
+            $conditions['search']['status'] = $status;
         }
-        if(!empty($group)){
-            $conditions['search']['group'] = $group;
+        if(!empty($grad)){
+            $conditions['search']['grad'] = $grad;
         }
-        if($pwithoutPL24 == 'true'){
-            $conditions['search']['pwithoutPL24'] = 'nn';
+        if(!empty($datumod)){
+            $conditions['search']['datumod'] = $datumod;
         }
-        if($pwithoutPL72 == 'true'){
-            $conditions['search']['pwithoutPL72'] = 'nn';
+        if(!empty($datumdo)){
+            $conditions['search']['datumdo'] = $datumdo;
         }
 
         //total rows count
-        $totalRec = count($this->Dashboard_model->getRows($conditions));
+        $totalRec = count($this->Dashboard_model->getPrijave($conditions));
         
         //pagination configuration
         $config['target']      = '#postList';
@@ -58,20 +57,36 @@ class Dashboard extends CI_Controller {
         $conditions['limit'] = $this->perPage;
         
         //get posts data
-        $data['p_statistics'] = $this->Dashboard_model->getRows($conditions);
-        
+        $data['prijave'] = $this->Dashboard_model->getPrijave($conditions);
         //load the view
-      //  $this->output->enable_profiler();
+        // $this->output->enable_profiler();
         $this->load->view('dashboard/ajax-pagination-data', $data, false);
     }
 
     public function index(){
         $data = array();
 
+        //total rows count
+        $totalRec = count($this->Dashboard_model->getPrijave());
+
+        //pagination configuration
+        $config['target']      = '#postList';
+        $config['base_url']    = base_url().'dashboard/ajaxPaginationData';
+        $config['total_rows']  = $totalRec;
+        $config['per_page']    = $this->perPage;
+        $config['link_func']   = 'searchFilter';
+        $this->ajax_pagination->initialize($config);
+
         $data['title'] = 'Dashboard';
 
+        //get the posts data
+        $data['prijave'] = $this->Dashboard_model->getPrijave(array('limit'=>$this->perPage));
+
+        // load status ande opstine for filter
+        $data['statusi'] = $this->Dashboard_model->getStatusi();
+        $data['gradovi'] = $this->Dashboard_model->getgradovi();
+
         $data['statistic'] = $this->Dashboard_model->getRowsCount();
-        $data['prijave'] = $this->Dashboard_model->getPrijave();
 
         // $this->output->enable_profiler();
         // $this->output->enable_profiler(true);

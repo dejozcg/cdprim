@@ -22,6 +22,32 @@
   <!-- <script src="<?=base_url()?>theme/js/sweetalert2.all.min.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
+  <script src="<?=base_url()?>theme/lib/datatables/jquery.dataTables.js"></script>
+    <script src="<?=base_url()?>theme/lib/datatables-responsive/dataTables.responsive.js"></script>
+
+  <script>
+      $(function(){
+        'use strict';
+
+        $('#datatable1').DataTable({
+          responsive: true, 
+          "paging":   false,
+          "info":     false,
+          searching: false,
+           retrieve: true
+        });
+
+        $('#datatable2').DataTable({
+          bLengthChange: false,
+          searching: false,
+          responsive: true
+        });
+
+        // Select2
+        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+
+      });
+    </script>
 
   <!-- Main JS-->
   <script src="<?=base_url()?>theme/js/main.js"></script>

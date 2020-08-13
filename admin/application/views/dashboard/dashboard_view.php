@@ -11,6 +11,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <?php $this->load->view('includes/header_desktop'); ?>
 
+    <script>
+        function searchFilter(page_num) {
+            page_num = page_num ? page_num : 0;
+
+
+            var status = $('#status').val();
+            var grad = $('#grad').val();
+            var datumod = $('#datumod').val();
+            var datumdo = $('#datumdo').val();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo base_url(); ?>dashboard/ajaxPaginationData/' + page_num,
+                data: 'page=' + page_num + '&status=' + status + '&grad=' + grad + '&datumod=' + datumod + '&datumdo=' + datumdo + '&status='+ '&status=' + status_neobradjen,
+                beforeSend: function() {
+                    $('.loading').show();
+                },
+                success: function(html) {
+                    $('#postList').html(html);
+                    $('.loading').fadeOut("slow");
+                    $('#datatable11').DataTable({
+                        responsive: true,
+                        "paging": false,
+                        "info": false,
+                        searching: false,
+                        retrieve: true
+                    });
+                }
+            });
+        }
+    </script>
+
+
+
     <?php
             $ukupno = 0;
             $podnesen = 0;
@@ -72,7 +105,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="<?= base_url() ?>prijave/1">
+                                        <a href="#?statu=1" onclick="searchFilter()" id="status_neobradjen" value="1">
                                             <i class="fa fa-tasks"></i> Neobrađene <?= $podnesen; ?>
                                             <!-- <span class="badge badge-danger pull-right"></span> -->
                                         </a>
@@ -121,59 +154,70 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="table-responsive table--no-card m-b-12">
                             <div class="input-group"> <span class="input-group-addon">Filter</span>
                                 <input id="filter" type="text" class="form-control col-3" placeholder="Type here...">
-                                <select name="select" id="select" class="form-control col-3">
-                                    <option value="0">pretraga po Statusu</option>
-                                    <option value="1">Option #1</option>
-                                    <option value="2">Option #2</option>
-                                    <option value="3">Option #3</option>
+                                <select id="status" name="status" onchange="searchFilter()" class="form-control col-3">
+                                    <option value="">pretraga po statusu</option>
+                                        <?php if (!empty($statusi)) :  foreach ($statusi as $status) : ?>    
+                                    <option value="<?php echo $status['id']; ?>"><?php echo $status['naziv']; ?></option>
+                                    <?php endforeach; endif; ?>
                                 </select>
+                                <select id="grad" name="grad" onchange="searchFilter()" class="form-control col-3">
+                                    <option value="">pretraga po opštini</option>
+                                        <?php if (!empty($gradovi)) :  foreach ($gradovi as $grad) : ?>    
+                                    <option value="<?php echo $grad['id']; ?>"><?php echo $grad['naziv_gr']; ?></option>
+                                    <?php endforeach; endif; ?>
+                                </select>
+                                <input id="datumod" type="date" class="form-control col-3" placeholder="datum od" onchange="searchFilter()">
+                                <input id="datumdo" type="date" class="form-control col-3" placeholder="datum do" onchange="searchFilter()">
                             </div>
-                            <table class="table table-borderless table-data3 table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Kategorija</th>
-                                        <th>Grad ID</th>
-                                        <th>Primjedba</th>
-                                        <th>Ime</th>
-                                        <th>Email</th>
-                                        <th>Datum primjedbe</th>
-                                        <th>Status</th>
-                                        <th>Akcija</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="searchable">
-                                    <?php if (!empty($prijave)) :  foreach ($prijave as $prijava) : ?>
-                                            <tr>
-                                                <td><?php echo $prijava['id']; ?></td>
-                                                <td><?php echo $prijava['kategorija']; ?></td>
-                                                <td><?php echo $prijava['grad']; ?></td>
-                                                <td><?php echo (strlen($prijava['primjedba']) > 20) ? substr($prijava['primjedba'], 0, 20) . "..." : $prijava['primjedba']; ?></td>
-                                                <td><?php echo $prijava['ime']; ?></td>
-                                                <td><?php echo $prijava['email']; ?></td>
-                                                <td><?php echo $prijava['datum_i']; ?></td>
-                                                <td><?php echo $prijava['status']; ?></td>
-                                                <td>
-                                                    <a href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>">
-                                                        <span class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Stampa prijave"></span>
-                                                    </a>
-                                                    <a href="<?= base_url() ?>prijava/<?php echo $prijava['id']; ?>">
-                                                        <span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Postupi po prijavi"></span>
-                                                    </a>
-                                                    <a onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'deletepage/&#39;'; ?>)" href="">
-                                                        <span class="fa fa-trash" data-toggle='tooltip' data-placement='top' title='Izbrisi prijavu'></span>
-                                                    </a>
-                                                </td>
+                            <div class="table-wrapper" id="postList">
+                                <table id="datatable11" class="table table-borderless table-striped table-responsive-stack">
+                                    <thead class="bg-dark">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Kategorija</th>
+                                            <th>Grad ID</th>
+                                            <th>Primjedba</th>
+                                            <th>Ime / Email</th>
+                                            <th>Datum primjedbe</th>
+                                            <th>Status</th>
+                                            <th>Akcija</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="searchable">
+                                        <?php if (!empty($prijave)) :  foreach ($prijave as $prijava) : ?>
+                                                <tr>
+                                                    <td><?php echo $prijava['id']; ?></td>
+                                                    <td><?php echo $prijava['kategorija']; ?></td>
+                                                    <td><?php echo $prijava['grad']; ?></td>
+                                                    <td><?php echo (strlen($prijava['primjedba']) > 20) ? substr($prijava['primjedba'], 0, 20) . "..." : $prijava['primjedba']; ?></td>
+                                                    <td><?php echo $prijava['ime'] . '<br>' .  $prijava['email']; ?></td>
+                                                    <!-- <td><?php // echo $prijava['email']; ?></td> -->
+                                                    <td><?php echo $prijava['datum_i']; ?></td>
+                                                    <td><?php echo $prijava['status']; ?></td>
+                                                    <td>
+                                                        <a href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>">
+                                                            <span class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Stampa prijave"></span>
+                                                        </a>
+                                                        <a href="<?= base_url() ?>prijava/<?php echo $prijava['id']; ?>">
+                                                            <span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Postupi po prijavi"></span>
+                                                        </a>
+                                                        <a onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'promijeniStat/&#39;'; ?>)" href="#">
+                                                            <span class="fa fa-trash" data-toggle='tooltip' data-placement='top' title='Izbrisi prijavu'></span>
+                                                        </a>
+                                                    </td>
 
 
 
-                                            </tr>
-                                        <?php endforeach; ?>
-                                </tbody>
-                            <?php else : ?>
-                                <p>Nema unijetih prijava.</p>
-                            <?php endif; ?>
-                            </table>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                    </tbody>
+                                    
+                                <?php else : ?>
+                                    <p>Nema unijetih prijava.</p>
+                                <?php endif; ?>
+                                </table>
+                                <?php echo $this->ajax_pagination->create_links(); ?>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -265,8 +309,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
     function dellData(id, url) {
         event.preventDefault(); // prevent form submit
         var form = event.target.form; // storing the form
-        console.log('url', url);
-        swal.fire({
+ 
+        Swal.fire({
             text: "Are you sure you want to delete?",
             showCancelButton: true,
             confirmButtonText: "Yes!",
@@ -278,10 +322,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 console.log('klik na yes u modal', id);
                 $.ajax({
                     type: 'POST',
-                    url: url + id,
-                    //data: {
-                    //    id: id
-                    //},
+                    url: url,
+                    data: {
+                        'idprij': id,
+                        'status': 5
+                    },
                     success: function(data) {
 
                         Swal.fire(

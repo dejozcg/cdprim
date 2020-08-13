@@ -1,32 +1,47 @@
- <table id="datatable11" class="table table-striped">
- <thead>
-                        <tr>
-                            <th>Page name</th>
-                            <th>Page like count<br><small>(last 72h change)</small></th>
-                            <th>Group</th>
-                            <th>Posts in last 24h</th>
-                            <th>Posts in last 72h</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if(!empty($p_statistics)):  foreach ($p_statistics as $statistic): ?>
-                        <tr>
-                            <td><?php echo $statistic['pname']; ?></td>
-                            <td><?php echo $statistic['pageLikes']; ?>
-                                <?php if($statistic['diffLikes'] >= 0): ?>
-                                <span class="tx-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-up">&nbsp;<?php echo $statistic['diffLikes']; ?></i> </span>
-                                <?php else: ?>
-                                <span class="tx-danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-circle-o-down">&nbsp;</i><?php echo $statistic['diffLikes']; ?></span>
-                                <?php endif; ?>
-                            </td>
-                            <td><?php echo $statistic['groups']; ?></td>
-                            <td><?php echo $statistic['current_posts24']; ?></td>
-                            <td><?php echo $statistic['current_posts72']; ?></td>
-                        </tr>
+<table id="datatable11" class="table table-borderless table-striped table-responsive-stack">
+                                    <thead class="bg-dark">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Kategorija</th>
+                                            <th>Grad ID</th>
+                                            <th>Primjedba</th>
+                                            <th>Ime / Email</th>
+                                            <th>Datum primjedbe</th>
+                                            <th>Status</th>
+                                            <th>Akcija</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="searchable">
+                                        <?php if (!empty($prijave)) :  foreach ($prijave as $prijava) : ?>
+                                                <tr>
+                                                    <td><?php echo $prijava['id']; ?></td>
+                                                    <td><?php echo $prijava['kategorija']; ?></td>
+                                                    <td><?php echo $prijava['grad']; ?></td>
+                                                    <td><?php echo (strlen($prijava['primjedba']) > 20) ? substr($prijava['primjedba'], 0, 20) . "..." : $prijava['primjedba']; ?></td>
+                                                    <td><?php echo $prijava['ime'] . '<br>' .  $prijava['email']; ?></td>
+                                                    <!-- <td><?php // echo $prijava['email']; ?></td> -->
+                                                    <td><?php echo $prijava['datum_i']; ?></td>
+                                                    <td><?php echo $prijava['status']; ?></td>
+                                                    <td>
+                                                        <a href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>">
+                                                            <span class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Stampa prijave"></span>
+                                                        </a>
+                                                        <a href="<?= base_url() ?>prijava/<?php echo $prijava['id']; ?>">
+                                                            <span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Postupi po prijavi"></span>
+                                                        </a>
+                                                        <a onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'deletepage/&#39;'; ?>)" href="">
+                                                            <span class="fa fa-trash" data-toggle='tooltip' data-placement='top' title='Izbrisi prijavu'></span>
+                                                        </a>
+                                                    </td>
 
-         <?php endforeach; ?>
-     </tbody>
- </table> <?php else: ?>
- <p>Post(s) not available.</p>
- <?php endif; ?>
- <?php echo $this->ajax_pagination->create_links(); ?>
+
+
+                                                </tr>
+                                            <?php endforeach; ?>
+                                    </tbody>
+                                    
+                                <?php else : ?>
+                                    <p>Nema unijetih prijava.</p>
+                                <?php endif; ?>
+                                </table>
+                                <?php echo $this->ajax_pagination->create_links(); ?>
