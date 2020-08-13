@@ -29,7 +29,7 @@
                                                         <a href="<?= base_url() ?>prijava/<?php echo $prijava['id']; ?>">
                                                             <span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Postupi po prijavi"></span>
                                                         </a>
-                                                        <a onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'deletepage/&#39;'; ?>)" href="">
+                                                        <a onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'promijeniStat/&#39;'; ?>)" href="#">
                                                             <span class="fa fa-trash" data-toggle='tooltip' data-placement='top' title='Izbrisi prijavu'></span>
                                                         </a>
                                                     </td>

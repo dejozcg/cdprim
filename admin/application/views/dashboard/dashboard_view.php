@@ -12,31 +12,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <?php $this->load->view('includes/header_desktop'); ?>
 
     <script>
-        function searchFilter(page_num) {
+        function searchFilter(page_num, id) {
             page_num = page_num ? page_num : 0;
 
-
             var status = $('#status').val();
+            if(id != undefined){
+                status = id;
+                $('#status').val('');
+            }
+
             var grad = $('#grad').val();
             var datumod = $('#datumod').val();
             var datumdo = $('#datumdo').val();
             $.ajax({
                 type: 'POST',
                 url: '<?php echo base_url(); ?>dashboard/ajaxPaginationData/' + page_num,
-                data: 'page=' + page_num + '&status=' + status + '&grad=' + grad + '&datumod=' + datumod + '&datumdo=' + datumdo + '&status='+ '&status=' + status_neobradjen,
+                data: 'page=' + page_num + '&status=' + status + '&grad=' + grad + '&datumod=' + datumod + '&datumdo=' + datumdo,
                 beforeSend: function() {
                     $('.loading').show();
                 },
                 success: function(html) {
                     $('#postList').html(html);
                     $('.loading').fadeOut("slow");
-                    $('#datatable11').DataTable({
-                        responsive: true,
-                        "paging": false,
-                        "info": false,
-                        searching: false,
-                        retrieve: true
-                    });
+                    // $('#datatable11').DataTable({
+                    //     responsive: true,
+                    //     "paging": false,
+                    //     "info": false,
+                    //     searching: false,
+                    //     retrieve: true
+                    // });
                 }
             });
         }
@@ -50,7 +54,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             $procedura = 0;
             $odbacen = 0;
             $rijesen = 0;
-            $izbrisane = 0;
+            //$izbrisane = 0;
 
     if (!empty($statistic)) {
         foreach ($statistic as $stat) {
@@ -90,7 +94,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="card-header user-header alt bg-dark">
                             <div class="media">
                                 <div class="media-body">
-                                    <h4 class="text-light display-6">Prikaz podnešenih prijava
+                                    <h4 class="text-light display-6">Status podnešenih prijava
                                     </h2>
                                 </div>
                             </div>
@@ -105,8 +109,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="#?statu=1" onclick="searchFilter()" id="status_neobradjen" value="1">
-                                            <i class="fa fa-tasks"></i> Neobrađene <?= $podnesen; ?>
+                                        <a href="#" onclick="searchFilter(0,4)">
+                                            <i class="fa fa-tasks"></i> Podnešene <?= $podnesen; ?>
                                             <!-- <span class="badge badge-danger pull-right"></span> -->
                                         </a>
                                     </li>
@@ -128,12 +132,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                             <!-- <span class="badge badge-warning pull-right r-activity"></span> -->
                                         </a>
                                     </li>
-                                    <li class="list-group-item">
-                                        <a href="<?= base_url() ?>prijave/5">
-                                            <i class="fa fa-eraser"></i> Obrisane <?= $izbrisane; ?>
-                                            <!-- <span class="badge badge-warning pull-right r-activity"></span> -->
+                                    <!-- <li class="list-group-item">
+                                        <a href="<?//= base_url() ?>prijave/5">
+                                            <i class="fa fa-eraser"></i> Obrisane <?//= $izbrisane; ?>
+                                          
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
 
                             </section>
@@ -244,21 +248,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 type: 'pie',
                 data: {
                     datasets: [{
-                        data: [<?php echo $podnesen . ', ' . $odbacen . ', ' . $procedura . ', ' . $rijesen . ', ' . $izbrisane; ?>],
+                        data: [<?php echo $podnesen . ', ' . $odbacen . ', ' . $procedura . ', ' . $rijesen; ?>], // . ', ' . $izbrisane
                         backgroundColor: [
                             "rgba(0,0,0,0.08)",
                             "rgb(11, 116, 237, 0.8)",
                             "rgb(237, 19, 11, 0.8)",
-                            "rgba(63, 191, 89,0.8)",
-                            "rgba(63, 191, 89,0.4)"
+                            "rgba(63, 191, 89,0.8)"
+                            //"rgba(63, 191, 89,0.4)"
                             // "rgba(0, 123, 255,0.5)"
                         ],
                         hoverBackgroundColor: [
                             "rgba(0,0,0,0.1)",
                             "rgb(11, 116, 237, 1)",
                             "rgb(237, 19, 11, 1)",
-                            "rgb(63, 191, 89, 1)",
-                            "rgba(63, 191, 89,0.6)"
+                            "rgb(63, 191, 89, 1)"
+                            // "rgba(63, 191, 89,0.6)"
                             // "rgba(0, 123, 255, 0.5)"
                         ]
 
@@ -267,8 +271,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         "Neobrađen",
                         "Odbačen",
                         "U proceduri",
-                        "Riješeni",
-                        "Izbrisani"
+                        "Riješeni"
+                        // "Izbrisani"
                     ]
                 },
                 options: {

@@ -2,7 +2,7 @@
 
 include "funkcije.php";
 // define absolute folder path
-$base_dest_folder = 'uploads/';
+$base_dest_folder = 'admin/uploads/';
 
 $name = empty($_POST['name'])? '': $_POST['name'];
 $email = empty($_POST['email'])? '': $_POST['email'];
@@ -36,7 +36,7 @@ if (!empty($_FILES)) {
      
         
         $targetFile =  $dest_folder.  millitime() .$_FILES['file']['name'][$key];
-        move_uploaded_file($tempFile,'admin/' . $targetFile);
+        move_uploaded_file($tempFile, $targetFile);
         $data = [
     	   "uid" => $targetFile,
            "file_name" => $_FILES['file']['name'][$key]

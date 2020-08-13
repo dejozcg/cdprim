@@ -49,6 +49,7 @@ class Dashboard_model extends CI_Model{
         }
         // //get records
         // $this->db->group_by('pages.id');
+        $this->db->where('p.status <> 5');
         $this->db->order_by('p.id desc');
         $query = $this->db->get();
         //return fetched data
@@ -80,6 +81,7 @@ class Dashboard_model extends CI_Model{
     function getStatusi() {
         $this->db->select();
         $this->db->from('status');
+        $this->db->where('id <> 5');
         $query = $this->db->get();
         return ($query->num_rows() > 0)?$query->result_array():array();
     }
