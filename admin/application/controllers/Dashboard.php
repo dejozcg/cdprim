@@ -9,7 +9,7 @@ class Dashboard extends CI_Controller {
             $this->load->library('Pdf');
             $this->load->helper('url_helper');
             $this->load->library('Ajax_pagination');
-            $this->perPage = 3;
+            $this->perPage = 20;
     }
 
     function ajaxPaginationData(){
@@ -192,7 +192,7 @@ class Dashboard extends CI_Controller {
         <p>' . "{$data['kategorija']}</p>" . "
         <h2>Podnosioc prijave je naveo:</h2>
         <p>{$data['primjedba']}.</p>" . 
-        "<p style='color:#CC0000;'>Prilog uz prijavu mozete preuzeti sa sledece stranice<a href='#'></a></p> IIIII je";
+        "<p style='color:#CC0000;'>Prilog uz prijavu mozete preuzeti sa sledece stranice<a href='#'></a></p>";
 
         // Print text using writeHTMLCell()
         $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='', $autopadding=true);

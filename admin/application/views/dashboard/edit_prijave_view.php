@@ -84,7 +84,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </div>
                                         <div class="col-12 col-md-9">
                                         <?php if(!empty($fajlovi)) : foreach($fajlovi as $file): ?>
-                                        <a href="<?=base_url()?><?php echo $file['file_path']; ?>">
+                                        <a href="<?=base_url()?><?php echo str_replace("admin/", "", $file['file_path']); ?>">
                                             <p class="form-control-static"><?php echo $file['file_name']; ?></p>
                                         </a> <br>
                                         <?php endforeach; endif; ?>
