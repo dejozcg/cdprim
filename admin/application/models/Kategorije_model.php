@@ -21,9 +21,9 @@ class Kategorije_model extends CI_Model{
         return ($query->num_rows() > 0)?$query->result_array():array();
     }
 
-    function getRowsKat($id = null){
+    function getOneRow($id = null, $table){
         $this->db->select();
-        $this->db->from('kategorija');
+        $this->db->from($table);
         $this->db->where('id',$id);
     
         //get records
@@ -31,7 +31,7 @@ class Kategorije_model extends CI_Model{
         //return fetched data
         return $query->result_array();
     }
- 
+
     function getOpstine(){
         $this->db->select();
         $this->db->from('grad');
@@ -81,10 +81,14 @@ class Kategorije_model extends CI_Model{
         // return $id;
     }
 
-    public function delete($id){
-        $this->db->set('IsActive', false);
+    public function delete($id, $table){
+        if($table == 'grad'){
+            $this->db->set('status', false);
+        }else{
+            $this->db->set('IsActive', false);
+        }
         $this->db->where('id', $id);
-        $this->db->update('kategorija');
+        $this->db->update($table);
         //$this->db->delete('users', $id);
         return $this->db->affected_rows();
     }

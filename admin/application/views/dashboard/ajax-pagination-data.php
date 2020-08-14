@@ -23,15 +23,17 @@
                                                     <td><?php echo $prijava['datum_i']; ?></td>
                                                     <td><?php echo $prijava['status']; ?></td>
                                                     <td>
-                                                        <a href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>">
-                                                            <span class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Stampa prijave"></span>
-                                                        </a>
-                                                        <a href="<?= base_url() ?>prijava/<?php echo $prijava['id']; ?>">
-                                                            <span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Postupi po prijavi"></span>
-                                                        </a>
-                                                        <a onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'promijeniStat/&#39;'; ?>)" href="#">
-                                                            <span class="fa fa-trash" data-toggle='tooltip' data-placement='top' title='Izbrisi prijavu'></span>
-                                                        </a>
+                                                        <div class="table-data-feature">
+                                                            <a class="item"  href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>" title="Stampa prijave">
+                                                                <i class="zmdi zmdi-print"></i>
+                                                            </a>
+                                                            <a class="item"  href="<?= base_url() ?>prijava/<?php echo $prijava['id']; ?>" title="Postupi po prijavi">
+                                                                <i class="zmdi zmdi-edit"></i>
+                                                            </a>
+                                                            <a class="item" onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'promijeniStat/&#39;'; ?>)" href="#" title='Izbrisi prijavu'>
+                                                                <i class="zmdi zmdi-delete"></i>
+                                                            </a>
+                                                        </div>
                                                     </td>
 
 

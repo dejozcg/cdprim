@@ -30,16 +30,27 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <div class="input-group"> <span class="input-group-addon">Filter</span>
                                     <input id="filter" type="text" class="form-control col-10" placeholder="Type here...">
                                 </div>
-                                <table class="table table-borderless table-data3">
-                                    <thead>
+                                <table class="table table-borderless table-striped table-responsive-stack">
+                                    <thead class="bg-dark">
                                         <th>Id</th>
                                         <th class="text-left">Naziv</th>
+                                        <th>Akcija</th>
                                     </thead>
                                     <tbody class="searchable">
                                         <?php if (!empty($opstine)) : foreach ($opstine as $opstina) : ?>
                                                 <tr>
                                                     <td class=""><?php echo $opstina['id']; ?></td>
                                                     <td class="col-md-8 text-left"><?php echo $opstina['naziv_gr']; ?></td>
+                                                    <td>
+                                                        <div class="table-data-feature">
+                                                            <a class="item" href="<?= base_url() ?>showopst/<?php echo $opstina['id']; ?>" title="Edit">
+                                                            <i class="zmdi zmdi-edit"></i>
+                                                            </a>
+                                                            <a class="item" onclick="dellData(<?php echo $opstina['id']  . ',&#39;' . base_url() . 'deletekateg/&#39;'; ?>, 'grad')" href="#" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                            <i class="zmdi zmdi-delete"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                     </tbody>
@@ -80,7 +91,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     });
 
-    function dellData(id, url) {
+    function dellData(id, url, tbl) {
         event.preventDefault(); // prevent form submit
         var form = event.target.form; // storing the form
  
@@ -97,9 +108,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $.ajax({
                     type: 'POST',
                     url: url + id,
-                    //data: {
-                    //    id: id
-                    //},
+                    data: {
+                       tbl: 'grad'
+                    },
                     success: function(data) {
 
                         Swal.fire(

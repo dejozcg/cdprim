@@ -28,12 +28,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="table-responsive table-responsive-data2">
                             <div class="input-group"> <span class="input-group-addon">Filter</span>
                                 <input id="filter" type="text" class="form-control col-3" placeholder="Type here...">
-                                <select name="select" id="select" class="form-control">
-                                    <option value="0">pretraga po Statusu</option>
-                                    <option value="1">Option #1</option>
-                                    <option value="2">Option #2</option>
-                                    <option value="3">Option #3</option>
-                                </select>
                             </div>
                             <table class="table table-data2">
                                 <thead>

@@ -113,9 +113,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $.ajax({
                     type: 'POST',
                     url: url + id,
-                    //data: {
-                    //    id: id
-                    //},
+                    data: {
+                       tbl: 'kategorija'
+                    },
                     success: function(data) {
 
                         Swal.fire(

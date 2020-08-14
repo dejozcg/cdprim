@@ -16,7 +16,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             page_num = page_num ? page_num : 0;
 
             var status = $('#status').val();
-            if(id != undefined){
+            if(id != undefined && id !== 6){
                 status = id;
                 $('#status').val('');
             }
@@ -103,32 +103,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <section class="card">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        <a href="<?= base_url() ?>prijave">
+                                        <a href="#" onclick="searchFilter(0,6)">
                                             <i class="fa fa-envelope" style="margin-right: 10px"></i> Sve prijave <?= $ukupno; ?>
                                             <!-- <span class="badge badge-primary pull-right"></span> -->
                                         </a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="#" onclick="searchFilter(0,4)">
-                                            <i class="fa fa-tasks"></i> Podnešene <?= $podnesen; ?>
+                                        <a href="#" onclick="searchFilter(0,1)">
+                                            <i class="fa fa-tasks" style="margin-right: 10px"></i> Podnešene <?= $podnesen; ?>
                                             <!-- <span class="badge badge-danger pull-right"></span> -->
                                         </a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="<?= base_url() ?>prijave/2">
-                                            <i class="fa fa-calendar-o"></i> U proceduri <?= $procedura; ?>
+                                        <a href="#" onclick="searchFilter(0,2)">
+                                            <i class="fa fa-calendar-o" style="margin-right: 10px"></i> U proceduri <?= $procedura; ?>
                                             <!-- <span class="badge badge-success pull-right"> </span> -->
                                         </a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="<?= base_url() ?>prijave/4">
-                                            <i class="fa fa-check"></i> Riješene <?= $rijesen; ?>
+                                        <a href="#" onclick="searchFilter(0,4)">
+                                            <i class="fa fa-check" style="margin-right: 10px"></i> Riješene <?= $rijesen; ?>
                                             <!-- <span class="badge badge-warning pull-right r-activity"></span> -->
                                         </a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="<?= base_url() ?>prijave/3">
-                                            <i class="fa fa-minus-circle"></i> Odbačen <?= $odbacen; ?>
+                                        <a href="#" onclick="searchFilter(0,5)">
+                                            <i class="fa fa-minus-circle" style="margin-right: 10px"></i> Odbačen <?= $odbacen; ?>
                                             <!-- <span class="badge badge-warning pull-right r-activity"></span> -->
                                         </a>
                                     </li>
@@ -199,15 +199,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                     <td><?php echo $prijava['datum_i']; ?></td>
                                                     <td><?php echo $prijava['status']; ?></td>
                                                     <td>
-                                                        <a href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>">
-                                                            <span class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Stampa prijave"></span>
-                                                        </a>
-                                                        <a href="<?= base_url() ?>prijava/<?php echo $prijava['id']; ?>">
-                                                            <span class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Postupi po prijavi"></span>
-                                                        </a>
-                                                        <a onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'promijeniStat/&#39;'; ?>)" href="#">
-                                                            <span class="fa fa-trash" data-toggle='tooltip' data-placement='top' title='Izbrisi prijavu'></span>
-                                                        </a>
+                                                        <div class="table-data-feature">
+                                                            <a class="item"  href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>" title="Stampa prijave">
+                                                                <i class="zmdi zmdi-print"></i>
+                                                            </a>
+                                                            <a class="item"  href="<?= base_url() ?>prijava/<?php echo $prijava['id']; ?>" title="Postupi po prijavi">
+                                                                <i class="zmdi zmdi-edit"></i>
+                                                            </a>
+                                                            <a class="item" onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'promijeniStat/&#39;'; ?>)" href="#" title='Izbrisi prijavu'>
+                                                                <i class="zmdi zmdi-delete"></i>
+                                                            </a>
+                                                        </div>
                                                     </td>
 
 

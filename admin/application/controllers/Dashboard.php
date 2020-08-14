@@ -126,7 +126,15 @@ class Dashboard extends CI_Controller {
     public function createPDF($id){
         $data = $this->Dashboard_model->getPrijavu($id);
         $data = array_shift($data);
-        
+        $fajlovi = $this->Dashboard_model->getFajlove($data['id']);
+        // $html1 = "<pre>" . print_r($fajlovi) . "</pre>";
+        $prilog = "";
+
+        if(!empty($fajlovi)){
+            foreach($fajlovi as $file){
+                $prilog = $prilog . "<p>{$file['file_name']}</p>";
+            }
+        }         
         
         $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -138,8 +146,9 @@ class Dashboard extends CI_Controller {
         $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
         
         // set default header data
-        $pdf->SetHeaderData('test.jpg', '30', 'Britanska ambasada', "www.britanija.com\nbroj telefona");
-        
+        // $pdf->SetHeaderData('test.jpg', '30', 'Britanska ambasada', "www.britanija.com\nbroj telefona");
+        $pdf->setPrintHeader(false);
+
         // set header and footer fonts
         $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
         $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
@@ -148,7 +157,7 @@ class Dashboard extends CI_Controller {
         $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
         
         // set margins
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, '10', PDF_MARGIN_RIGHT);
         $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
         $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
         
@@ -167,7 +176,7 @@ class Dashboard extends CI_Controller {
         // ---------------------------------------------------------
         
         // set font
-        // $pdf->SetFont('times', 'BI', 12);
+        $pdf->SetFont('freesans', '', 10);
         
         // add a page
         $pdf->AddPage();
@@ -184,23 +193,27 @@ class Dashboard extends CI_Controller {
         
         // ---------------------------------------------------------
         
+        // $html1 = "<pre>" . print_r($data) . "</pre>";
+        $html =  "<h1>Poštovani,</h1>
+        <i>Na portal za prijavu zloupotreba u toku izbrone kampanje za Parlamentarne izbore 2020.godine, pristigla je nova prijava zbog mogućeg kršenja Zakona o finansiranju političkih subjekata i izbornih kampanja.</i>
+        <i>Ovim putem Vas najljubaznije molimo da istu razmotrite i da nas pisano obavijestite o postupku po prijavi.</i>
+        <p>Pravni osnov prijave: {$data['kategorija']} - <em> ({$data['opis']}) </em></p>"
+         . "
+         <strong>Podnosioc prijave je naveo:</strong>
+        <span style='text-align:justify;'><p style='text-align:justify;'>{$data['primjedba']}.</p></span>";
+        // "<p style='color:#CC0000;'>Prilog uz prijavu mozete preuzeti sa sledece stranice<a href='#'></a></p>";
 
-        $html =  '<h1>Poštovani,</h1>
-        <i>Na portal za prijavu zloupotreba pristigla je nova koja se odnosi na funkcionisanje vaše institucije. Ovim putem Vas najljubaznije molimo da istu razmotrite i da nas pisano obavijestite.</i>
-        <i></i>
-        <p>Pravni osnov prijave</p>
-        <p>' . "{$data['kategorija']}</p>" . "
-        <h2>Podnosioc prijave je naveo:</h2>
-        <p>{$data['primjedba']}.</p>" . 
-        "<p style='color:#CC0000;'>Prilog uz prijavu mozete preuzeti sa sledece stranice<a href='#'></a></p>";
-
+        if(!empty($prilog)){
+            $html = $html . "<strong>Prilog: Uz prijavu dostavljeni su i prilozi</strong> <p>{$prilog}</p>";
+        }
+        
         // Print text using writeHTMLCell()
-        $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='', $autopadding=true);
+        $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border=0, $ln=1, $fill=0, $reseth=true, $align='J', $autopadding=true);
 
         $pdf->Write(5, '', '');
+  
 
-
-
+  
 
         //Close and output PDF document
         $pdf->Output('example_003.pdf', 'I');

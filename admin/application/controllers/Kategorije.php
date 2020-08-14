@@ -191,6 +191,47 @@ class Kategorije extends CI_Controller {
         }
     }
 
+    public function editOpst(){
+        
+        $this->no_Admin_permition();
+
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules(
+            'naziv', 'opština',
+            'trim|required|min_length[3]|is_unique[grad.naziv_gr]',
+            array(
+                    'required'      => 'You have not provided %s.',
+                    'is_unique'     => 'Ovaj %s vec postoji.'
+            )
+        );
+
+        $data = array(
+            'naziv_gr' => $this->input->post('naziv')
+        );
+        $id = $this->input->post('id');
+      
+        if ($this->form_validation->run() === FALSE){
+            $data['title'] = 'Opštine';
+            $data['opstina'] = false;
+            // $this->load->view('templates/header', $data);
+            // $this->load->view('news/create');
+            // $this->load->view('templates/footer');
+            // $this->load->view('users/users_view', $data);
+            $this->load->view('opstina/edit_opstina_view', $data);
+        }else{
+
+            // $this->input->post('role')? $data['roleid'] = $this->input->post('role'):false;
+
+            $a = $this->Kategorije_model->update($data, $id, 'grad');
+
+            $this->output->enable_profiler();
+            $data['title'] = 'Opštine';
+            redirect('/opstine');
+        }
+    }
+
     public function no_Admin_permition(){
         if(!isset($this->session->userdata('user')['role'])){
             return redirect('/');
@@ -203,16 +244,31 @@ class Kategorije extends CI_Controller {
 
     public function delete ($id){
         $this->no_Admin_permition();
-        $this->Kategorije_model->delete($id);
-        redirect('/kategorije');
+        $table = $this->input->post('tbl');
+        $this->Kategorije_model->delete($id, $table);
+        if($table == 'grad'){
+            redirect('/opstine');
+        }else{
+            redirect('/kategorije');
+        }
     }
 
     public function showKat ($id){
         $this->no_Admin_permition();
-        $data['kategorija'] = $this->Kategorije_model->getRowsKat($id);
+        $data['kategorija'] = $this->Kategorije_model->getOneRow($id, 'kategorija');
         $data['kategorija'] = array_shift($data['kategorija']);
         $data['title'] = 'Editovanje kategorije';
         $this->load->view('kategorije/edit_kategorija_view', $data);
+        // $this->output->enable_profiler();
+        // print_r($data['kategorija']);
+    }
+
+    public function showOpst ($id){
+        $this->no_Admin_permition();
+        $data['opstina'] = $this->Kategorije_model->getOneRow($id, 'grad');
+        $data['opstina'] = array_shift($data['opstina']);
+        $data['title'] = 'Editovanje opštine';
+        $this->load->view('opstina/edit_opstina_view', $data);
         // $this->output->enable_profiler();
         // print_r($data['kategorija']);
     }
