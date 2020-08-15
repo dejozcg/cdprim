@@ -123,11 +123,11 @@
                                                             Prijava
                                                         </a>
                                                     </li>
-                                                    <li class="dropdown">
+                                                    <!-- <li class="dropdown">
                                                         <a class="dropdown-item dropdown-toggle" href="About.html">
                                                             O projektu
                                                         </a>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </nav>
                                         </div>
@@ -148,7 +148,7 @@
 
                 <div class="row">
                     <div class="container">
-                        <img alt="Porto" src="images/baner.png">
+                        <img alt="Porto" src="images/baner1.png">
                         	<!-- <section class="page-header page-header-modern page-header-background page-header-background-md parallax" data-plugin-parallax data-plugin-options="{'speed': 1.2, enableOnMobile: true}" data-image-src="images/baner.png"></section> -->
                     </div>
                 </div>

@@ -18,7 +18,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             var status = $('#status').val();
             if(id != undefined && id !== 6){
                 status = id;
-                $('#status').val('');
+                $('#status').val(status);
             }
 
             var grad = $('#grad').val();
