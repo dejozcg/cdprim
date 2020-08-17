@@ -15,7 +15,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 <div class="row center">
                     <div class="col-lg-6 mr-auto ml-auto">
                         <div class="card">
-                            <div class="card-header">Podaci o korisniku</div>
+                            <div class="card-header">Podaci</div>
                             <div class="card-body">
                                 <div class="card-title">
                                     <!-- <h3 class="text-center title-2">Podaci o korisniku</h3> -->
