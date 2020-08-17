@@ -20,6 +20,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 status = id;
                 $('#status').val(status);
             }
+            if(id == 6){
+                $('#status').val('');
+                status = '';
+            }
 
             var grad = $('#grad').val();
             var datumod = $('#datumod').val();
@@ -127,7 +131,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="#" onclick="searchFilter(0,5)">
+                                        <a href="#" onclick="searchFilter(0,3)">
                                             <i class="fa fa-minus-circle" style="margin-right: 10px"></i> Odbačen <?= $odbacen; ?>
                                             <!-- <span class="badge badge-warning pull-right r-activity"></span> -->
                                         </a>
