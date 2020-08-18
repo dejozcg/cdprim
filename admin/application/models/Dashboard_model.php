@@ -58,7 +58,7 @@ class Dashboard_model extends CI_Model{
     }
 
     function getPrijavu($id){
-        $this->db->select('p.id ,k.naziv kategorija, k.opis opis, g.naziv_gr grad, p.primjedba, p.datum_i, s.naziv status, s.id id_stat');
+        $this->db->select('p.id ,k.naziv kategorija, k.opis opis, g.naziv_gr grad, p.primjedba, p.datum_i, s.naziv status, s.id id_stat, p.ime, p.email');
         $this->db->from('prijava p');
         $this->db->join('status s', 's.id = p.status');
         $this->db->join('kategorija k', 'k.id = p.kategorija');    

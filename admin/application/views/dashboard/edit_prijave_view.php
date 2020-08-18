@@ -79,6 +79,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     </div>
                                 </div>
                                 <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Podnosioc</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static">
+                                        <?php echo $prijava['ime']; ?>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Email</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p class="form-control-static">
+                                        <?php echo $prijava['email']; ?>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
                                         <div class="col col-md-3">
                                             <label for="password-input" class=" form-control-label">Prilozi</label>
                                         </div>
@@ -89,7 +107,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         </a> <br>
                                         <?php endforeach; endif; ?>
                                         </div>
-                                    </div>
+                                </div>
                                 <?php echo form_open('promijeniStat'); ?>
                                     <input type="hidden" name="idprij" value="<?php echo $prijava['id']; ?>">
                                     <div class="row form-group">
