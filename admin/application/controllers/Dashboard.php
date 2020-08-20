@@ -200,9 +200,18 @@ class Dashboard extends CI_Controller {
         <p>Pravni osnov prijave: {$data['kategorija']} - <em> ({$data['opis']}) </em></p>"
          . "
          <strong>Podnosioc prijave je naveo:</strong>
-        <span style='text-align:justify;'><p style='text-align:justify;'>{$data['primjedba']}.</p></span>";
+        <span style='text-align:justify;'><p style='text-align:justify;'>{$data['primjedba']}.</p></span>
+        <span style='text-align:justify;'><p style='text-align:justify;'>Vrijeme podnošenja prijave: {$data['datum_i']}.</p></span>";
         // "<p style='color:#CC0000;'>Prilog uz prijavu mozete preuzeti sa sledece stranice<a href='#'></a></p>";
 
+        if(!empty($data['ime']) || !empty($data['email'])){
+            if(!empty($data['ime'])){
+                $html = $html . "<span style='text-align:justify;'><p style='text-align:justify;'>Ime podnosioca prijave: {$data['ime']}.</p></span>";
+            }
+            if(!empty($data['email'])){
+                $html = $html . "<span style='text-align:justify;'><p style='text-align:justify;'>Email podnosioca prijave: {$data['email']}.</p></span>";
+            }
+        }
         if(!empty($prilog)){
             $html = $html . "<strong>Prilog: Uz prijavu dostavljeni su i prilozi</strong> <p>{$prilog}</p>";
         }
