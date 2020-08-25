@@ -225,12 +225,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 </form>
                             </div>
                             <div class="card-footer">
+                                <a href="<?= base_url() ?>" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-arrow-left"></i> Nazad
+                                </a>
                                 <a href="<?= base_url() ?>create/<?php echo $prijava['id']; ?>" class="btn btn-dark btn-sm">
                                     <i class="fa fa-print"></i> Stampa prijave
                                 </a>
-                                <button type="reset" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-ban"></i> Reset
-                                </button>
+                                <a class="btn btn-danger btn-sm" onclick="dellData(<?php echo $prijava['id'] . ',&#39;' . base_url() . 'promijeniStat/&#39;'; ?>)" href="#" title='Izbrisi prijavu'>
+                                    <i class="zmdi zmdi-delete"></i> Izbriši prijavu
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -247,3 +250,52 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </div>
 
 <?php $this->load->view('includes/footer'); ?>
+
+<script>
+    function dellData(id, url) {
+        event.preventDefault(); // prevent form submit
+        var form = event.target.form; // storing the form
+ 
+        Swal.fire({
+            text: "Are you sure you want to delete?",
+            showCancelButton: true,
+            confirmButtonText: "Yes!",
+            cancelButtonText: "No!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }).then((result) => {
+            if (result.value) {
+                console.log('klik na yes u modal', id);
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        'idprij': id,
+                        'status': 5
+                    },
+                    success: function(data) {
+
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        ).then((result) => {
+                            if (result.value) {
+                                location.href="<?= base_url() ?>";
+                                // location.reload();
+                            }
+                        });
+
+                        // window.location(url); 
+                    },
+                    error: function(data) {
+                        swal("NOT Deleted!", "Something blew up.", "error");
+                    }
+                });
+            } else {
+                console.log('klik na no u modal');
+            }
+        });
+
+    }
+</script>
